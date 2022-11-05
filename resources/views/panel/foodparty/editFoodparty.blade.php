@@ -1,7 +1,7 @@
 @extends('panel.layout')
 
 @section('header')
-<title>ثبت کد تخفیف</title>
+<title>ثبت اطلاعات غذا</title>
     <!--- Internal Select2 css-->
     <link href="{{ asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet">
     <!---Internal Fileupload css-->
@@ -84,46 +84,42 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="main-content-label mg-b-20">
-                            ثبت کد تخفیف
+                            ثبت اطلاعات غذا
                         </div>
                         @include('panel.sections.errors')
-                        <form class="needs-validation was-validated" method="post" action="{{ route('admin.discount.store') }}">
+                        <form class="needs-validation was-validated" method="post" action="{{ route('seller.foodparty.update',$foodPartyItem->id) }}" enctype="multipart/form-data">
                             @csrf
+                            @method('patch')
                             <div class="form-row">
-                                <div class="col-md-6 col-12">
+                                <div class="col-md-6 mb-4">
                                     <div class="form-group">
-                                        <label for="title">عنوان تخفیف</label>
-                                        <input type="text" class="form-control" id="title" name="title" placeholder="" value="{{ old('title') }}" tabindex="1">
+                                        <label for="food_id">انتخاب غذا</label>
+                                        <select name="food_id" class="form-control" id="food_id">
+                                            @forelse($restaurants->foods as $food)
+                                                <option value="{{ $food->id }}">{{ $food->name }}</option>
+                                            @empty
+
+                                            @endforelse
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-group">
+                                        <label for="discount_id">کد تخفیف</label>
+                                        <select name="discount_id" class="form-control" id="discount_id">
+                                                <option value="">بدون کد تخفیف</option>
+                                            @forelse($discounts as $discount)
+                                                <option value="{{ $discount->id }}">{{ $discount->title }}</option>
+                                            @empty
+
+                                            @endforelse
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
-                                        <label for="coupon">کد تخفیف</label>
-                                        <input type="text" class="form-control" id="coupon" name="coupon" placeholder="" value="{{ old('coupon') }}" tabindex="1">
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-12">
-                                    <div class="form-group">
-                                        <label for="percent">درصد تخفیف</label>
-                                        <input type="number" class="form-control" id="percent" name="percent" placeholder="" value="{{ old('percent',0) }}" tabindex="8">
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-12">
-                                    <div class="form-group">
-                                        <label for="price">مبلغ تخفیف (ريال)</label>
-                                        <input type="number" class="form-control" id="price" name="price" placeholder="" value="{{ old('price',0) }}" tabindex="9">
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-12">
-                                    <div class="form-group">
-                                        <label for="start_date">تاریخ شروع تخفیف</label>
-                                        <input type="date" class="form-control" id="start_date" name="start_date" placeholder="" value="{{ old('start_date') }}" tabindex="10">
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-12">
-                                    <div class="form-group">
-                                        <label for="expire_date">تاریخ پایان تخفیف</label>
-                                        <input type="date" class="form-control" id="expire_date" name="expire_date" placeholder="" value="{{ old('expire_date') }}" tabindex="11">
+                                        <label for="food_count">تعداد</label>
+                                        <input type="number" class="form-control" id="food_count" name="food_count" placeholder="" value="{{ old('food_count',$foodPartyItem['food_count']) }}" tabindex="9">
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-4">

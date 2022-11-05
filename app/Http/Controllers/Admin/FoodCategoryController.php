@@ -47,6 +47,7 @@ class FoodCategoryController extends Controller
             'title'=>'required',
             'english_title'=>'required',
             'parent_id'=>new CategoryIdRule(),
+            'status'=>'bail|required|numeric',
         ]);
 
         FoodCategory::create($request->except(['method','csrf']));
@@ -76,7 +77,7 @@ class FoodCategoryController extends Controller
         $catItem = $this->findCategoryData($id);
         $this->authorize('update', $catItem);
         $cats = $this->getAllFoodCategory();
-        return view('panel.foodcategory.newFoodCategory',compact(['catItem','cats']));
+        return view('panel.foodcategory.editFoodCategory',compact(['catItem','cats']));
     }
 
     /**
@@ -93,13 +94,15 @@ class FoodCategoryController extends Controller
         $request->validate([
             'title'=>'required',
             'english_title'=>'required',
-            'parent_id'=>'required|numeric',
+            'parent_id'=>new CategoryIdRule(),
+            'status'=>'bail|required|numeric',
         ]);
 
         $data = [
             'title'=>$request->title,
             'english_title'=>$request->english_title,
             'parent_id'=>$request->main_id,
+            'status'=>$request->status,
         ];
         FoodCategory::where('id',$id)->update($data);
         return redirect()->back()->with(['successMassage'=>'Food Category Updated Successfully.']);

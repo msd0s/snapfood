@@ -1,7 +1,7 @@
 @extends('panel.layout')
 
 @section('header')
-    <title>ثبت شاخه محصولات</title>
+    <title>ثبت دسته بندی غذا</title>
     <!--- Internal Select2 css-->
     <link href="{{ asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet">
     <!---Internal Fileupload css-->
@@ -74,11 +74,8 @@
                         </div>
                         @include('panel.sections.errors')
                         <form class="needs-validation was-validated" method="post"
-                              action="@isset($catItem){{ route('admin.foodcategory.update',$catItem->id) }}@else{{ route('admin.foodcategory.store') }}@endisset">
+                              action="{{ route('admin.foodcategory.store') }}">
                             @csrf
-                            @isset($catItem)
-                                @method('patch')
-                            @endisset
                             <div class="form-row">
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
@@ -88,7 +85,7 @@
                                             <option value="0">انتخاب کنید</option>
                                             @forelse($cats as $showcat)
                                                 <option
-                                                    value="{{ $showcat['id'] }}" {{ isset($catItem) && $showcat['id']==$catItem->main_id ? 'selected' : '' }}>{{ $showcat['title'] }}</option>
+                                                    value="{{ $showcat['id'] }}">{{ $showcat['title'] }}</option>
                                             @empty
 
                                             @endforelse
@@ -98,15 +95,24 @@
                                 <div class="col-md-6 mb-4">
                                     <label for="title">عنوان فارسی</label>
                                     <input type="text" class="form-control" id="title" placeholder="عنوان فارسی"
-                                           name="title" value="{{ old('title',isset($catItem) ? $catItem['title'] : '') }}"
+                                           name="title" value="{{ old('title') }}"
                                            tabindex="2">
                                 </div>
                                 <div class="col-md-6 mb-4">
                                     <label for="english_title">عنوان انگلیسی</label>
                                     <input type="text" class="form-control" id="english_title"
                                            placeholder="عنوان انگلیسی" name="english_title"
-                                           value="{{ old('english_title',isset($catItem) ? $catItem['english_title'] : '') }}"
+                                           value="{{ old('english_title') }}"
                                            tabindex="2">
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-group">
+                                        <label for="status">وضعیت</label>
+                                        <select name="status" class="form-control" id="status">
+                                            <option value="1">فعال</option>
+                                            <option value="0">غیرفعال</option>
+                                        </select>
+                                    </div>
                                 </div>
 
                             </div>

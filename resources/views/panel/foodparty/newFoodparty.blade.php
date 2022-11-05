@@ -87,13 +87,8 @@
                             ثبت اطلاعات غذا
                         </div>
                         @include('panel.sections.errors')
-                        <form class="needs-validation was-validated" method="post" action="@isset($foodPartyItem){{ route('seller.foodparty.update',$foodPartyItem->id) }}@else{{ route('seller.foodparty.store') }}@endisset" enctype="multipart/form-data">
+                        <form class="needs-validation was-validated" method="post" action="{{ route('seller.foodparty.store') }}" enctype="multipart/form-data">
                             @csrf
-                            @isset($foodPartyItem)
-                                @method('patch')
-                            @endisset
-
-
                             <div class="form-row">
                                 <div class="col-md-6 mb-4">
                                     <div class="form-group">
@@ -123,7 +118,16 @@
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="food_count">تعداد</label>
-                                        <input type="number" class="form-control" id="food_count" name="food_count" placeholder="" value="{{ old('food_count',isset($foodPartyItem) ? $foodPartyItem['food_count'] : 0) }}" tabindex="9">
+                                        <input type="number" class="form-control" id="food_count" name="food_count" placeholder="" value="{{ old('food_count',0) }}" tabindex="9">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-group">
+                                        <label for="status">وضعیت</label>
+                                        <select name="status" class="form-control" id="status">
+                                            <option value="1">فعال</option>
+                                            <option value="0">غیرفعال</option>
+                                        </select>
                                     </div>
                                 </div>
 

@@ -42,8 +42,8 @@ class ScheduleController extends Controller
         $this->authorize('create', Schedule::class);
         $request->validate([
             'day'=>'required',
-            'from_hours'=>'required',
-            'to_hours'=>'required',
+            'from_hours'=>'nullable|date_format:H:i',
+            'to_hours'=>'nullable|date_format:H:i',
             'is_closed'=>'required',
         ]);
 
@@ -76,7 +76,7 @@ class ScheduleController extends Controller
     {
         $scheduleItem = $this->findScheduleItem($id);
         $this->authorize('update', $scheduleItem);
-        return view('panel.schedule.newSchedule',compact(['scheduleItem']));
+        return view('panel.schedule.editSchedule',compact(['scheduleItem']));
     }
 
     /**
@@ -92,8 +92,8 @@ class ScheduleController extends Controller
         $this->authorize('update', $scheduleItem);
         $request->validate([
             'day'=>'required',
-            'from_hours'=>'required',
-            'to_hours'=>'required',
+            'from_hours'=>'nullable|date_format:H:i',
+            'to_hours'=>'nullable|date_format:H:i',
             'is_closed'=>'required',
         ]);
 

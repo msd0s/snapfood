@@ -54,6 +54,7 @@ class FoodController extends Controller
             'price'=>'bail|required|numeric',
             'count'=>'bail|required|numeric',
             'discount_id'=>'bail|required|numeric',
+            'status'=>'bail|required|numeric',
         ]);
 
         $pictureFileName = time().'-'.$request->file('picture')->getClientOriginalName();
@@ -66,6 +67,7 @@ class FoodController extends Controller
             'picture'=>$pictureFileName,
             'price'=>$request->price,
             'count'=>$request->count,
+            'stauts'=>$request->status,
         ];
 
         $food = Food::create($data);
@@ -101,7 +103,7 @@ class FoodController extends Controller
         $this->authorize('update', $foodItem);
         $cats = $this->getAllFoodCategories();
         $discounts = $this->getAllDiscounts();
-        return view('panel.food.newFood',compact(['foodItem','cats','discounts']));
+        return view('panel.food.editFood',compact(['foodItem','cats','discounts']));
     }
 
     /**
@@ -123,6 +125,7 @@ class FoodController extends Controller
             'price'=>'bail|required|numeric',
             'count'=>'bail|required|numeric',
             'discount_id'=>'bail|required|numeric',
+            'status'=>'bail|required|numeric',
         ]);
 
 
@@ -136,6 +139,7 @@ class FoodController extends Controller
             'picture'=>$pictureFileName,
             'price'=>$request->price,
             'count'=>$request->count,
+            'status'=>$request->status,
         ];
         Food::where('id',$id)->update($data);
         $food = $this->findFoodData($id);

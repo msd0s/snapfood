@@ -1,7 +1,7 @@
 @extends('panel.layout')
 
 @section('header')
-<title>ثبت کد تخفیف</title>
+<title>ثبت ساعات کاری رستوران</title>
     <!--- Internal Select2 css-->
     <link href="{{ asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet">
     <!---Internal Fileupload css-->
@@ -39,6 +39,8 @@
             margin: 5px 0px 0px 10px !important;
         }
     </style>
+    <link href="{{ asset('css/leaflet.css') }}" rel="stylesheet" type="text/css">
+    <script src="{{ asset('js/leaflet.js') }}" type="text/javascript"></script>
 @stop
 
 @section('content')
@@ -84,54 +86,45 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="main-content-label mg-b-20">
-                            ثبت کد تخفیف
+                            ثبت ساعات کاری رستوران
                         </div>
                         @include('panel.sections.errors')
-                        <form class="needs-validation was-validated" method="post" action="{{ route('admin.discount.store') }}">
+                        <form class="needs-validation was-validated" method="post" action="{{ route('seller.schedule.update',$scheduleItem->id) }}">
                             @csrf
+                            @method('patch')
                             <div class="form-row">
-                                <div class="col-md-6 col-12">
+                                <div class="col-md-6 mb-4">
                                     <div class="form-group">
-                                        <label for="title">عنوان تخفیف</label>
-                                        <input type="text" class="form-control" id="title" name="title" placeholder="" value="{{ old('title') }}" tabindex="1">
+                                        <label for="day">انتخاب روز</label>
+                                        <select name="day" class="form-control" id="day">
+                                            <option value="0">Saturday</option>
+                                            <option value="1">Sunday</option>
+                                            <option value="2">Monday</option>
+                                            <option value="3">Tuesday</option>
+                                            <option value="4">Wednesday</option>
+                                            <option value="5">Thursday</option>
+                                            <option value="6">Friday</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
-                                        <label for="coupon">کد تخفیف</label>
-                                        <input type="text" class="form-control" id="coupon" name="coupon" placeholder="" value="{{ old('coupon') }}" tabindex="1">
+                                        <label for="from_hours">از ساعت</label>
+                                        <input type="time" class="form-control" id="from_hours" name="from_hours" placeholder="" value="{{ old('from_hours',$scheduleItem['from_hours']) }}" tabindex="1">
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
-                                        <label for="percent">درصد تخفیف</label>
-                                        <input type="number" class="form-control" id="percent" name="percent" placeholder="" value="{{ old('percent',0) }}" tabindex="8">
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-12">
-                                    <div class="form-group">
-                                        <label for="price">مبلغ تخفیف (ريال)</label>
-                                        <input type="number" class="form-control" id="price" name="price" placeholder="" value="{{ old('price',0) }}" tabindex="9">
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-12">
-                                    <div class="form-group">
-                                        <label for="start_date">تاریخ شروع تخفیف</label>
-                                        <input type="date" class="form-control" id="start_date" name="start_date" placeholder="" value="{{ old('start_date') }}" tabindex="10">
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-12">
-                                    <div class="form-group">
-                                        <label for="expire_date">تاریخ پایان تخفیف</label>
-                                        <input type="date" class="form-control" id="expire_date" name="expire_date" placeholder="" value="{{ old('expire_date') }}" tabindex="11">
+                                        <label for="to_hours">تا ساعت</label>
+                                        <input type="time" class="form-control" id="to_hours" name="to_hours" placeholder="" value="{{ old('to_hours',$scheduleItem['to_hours']) }}" tabindex="1">
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-4">
                                     <div class="form-group">
-                                        <label for="status">وضعیت</label>
-                                        <select name="status" class="form-control" id="status">
-                                            <option value="1">فعال</option>
-                                            <option value="0">غیرفعال</option>
+                                        <label for="is_closed">تعطیل</label>
+                                        <select name="is_closed" class="form-control" id="is_closed">
+                                            <option value="0">خیر</option>
+                                            <option value="1">بله</option>
                                         </select>
                                     </div>
                                 </div>
@@ -193,5 +186,13 @@
     <script>
         $('#mobile').inputmask("99999999999");
         $('#phonenumber').inputmask("99999999999");
+    </script>
+    <script>
+        myMap.on('click', onMapClick);
+
+        function onMapClick(e) {
+            $('#lat').val(e.latlng.lat);
+            $('#lng').val(e.latlng.lng);
+        }
     </script>
 @stop

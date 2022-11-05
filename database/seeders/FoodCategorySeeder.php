@@ -16,16 +16,16 @@ class FoodCategorySeeder extends Seeder
     public function run()
     {
         FoodCategory::create(
-            ['title'=>'پیتزا','english_title'=>'pizza','main_id'=>0]
+            ['title'=>'پیتزا','english_title'=>'pizza','parent_id'=>0]
         );
         FoodCategory::create(
-            ['title'=>'ساندویچ','english_title'=>'sandwitch','main_id'=>0]
+            ['title'=>'ساندویچ','english_title'=>'sandwitch','parent_id'=>0]
         );
         FoodCategory::create(
-            ['title'=>'مرغ','english_title'=>'chicken','main_id'=>0]
+            ['title'=>'مرغ','english_title'=>'chicken','parent_id'=>0]
         );
         FoodCategory::create(
-            ['title'=>'ماکارونی','english_title'=>'macaroni','main_id'=>0]
+            ['title'=>'ماکارونی','english_title'=>'macaroni','parent_id'=>0]
         );
     }
 }

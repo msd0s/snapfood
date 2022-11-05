@@ -16,13 +16,13 @@ class RestaurantCategorySeeder extends Seeder
     public function run()
     {
         RestaurantCategory::create(
-            ['title'=>'ایرانی','english_title'=>'irani','main_id'=>0]
+            ['title'=>'ایرانی','english_title'=>'irani','parent_id'=>0]
         );
         RestaurantCategory::create(
-            ['title'=>'ایتالیایی','english_title'=>'italiayi','main_id'=>0]
+            ['title'=>'ایتالیایی','english_title'=>'italiayi','parent_id'=>0]
         );
         RestaurantCategory::create(
-            ['title'=>'سنتی','english_title'=>'sonati','main_id'=>0]
+            ['title'=>'سنتی','english_title'=>'sonati','parent_id'=>0]
         );
     }
 }

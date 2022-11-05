@@ -10,7 +10,7 @@ class Discount extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title','coupon','price','percent','start_date','expire_date'
+        'title','coupon','price','percent','start_date','expire_date','status'
     ];
 
     public function foods()

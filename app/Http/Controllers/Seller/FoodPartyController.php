@@ -50,11 +50,12 @@ class FoodPartyController extends Controller
             'food_id'=>'required|numeric|unique:foodparties',
             'discount_id'=>new DiscountIdRule(),
             'food_count'=>'required',
+            'status'=>'bail|required|numeric',
         ]);
 
         $foodParty = Foodparty::updateOrCreate(
             ['restaurant_id' => auth()->user()->restaurant->id,'food_id'=>$request->food_id],
-            ['discount_id'=>$request->discount_id, 'food_count'=>$request->food_count]
+            ['discount_id'=>$request->discount_id, 'food_count'=>$request->food_count, 'status'=>$request->status]
         );
         return redirect()->back()->with(['successMassage'=>'New FoodParty Created Successfully.']);
     }
@@ -83,7 +84,7 @@ class FoodPartyController extends Controller
         $this->authorize('update', $foodPartyItem);
         $discounts = Discount::all();
         $restaurants = auth()->user()->restaurant;
-        return view('panel.foodparty.newFoodparty',compact(['foodPartyItem','discounts','restaurants']));
+        return view('panel.foodparty.editFoodparty',compact(['foodPartyItem','discounts','restaurants']));
     }
 
     /**
@@ -101,11 +102,12 @@ class FoodPartyController extends Controller
             'food_id'=>'required|numeric',
             'discount_id'=>new DiscountIdRule(),
             'food_count'=>'required',
+            'status'=>'bail|required|numeric',
         ]);
 
         $foodParty = Foodparty::updateOrCreate(
             ['restaurant_id' => auth()->user()->restaurant->id,'food_id'=>$request->food_id],
-            ['discount_id'=>$request->discount_id, 'food_count'=>$request->food_count]
+            ['discount_id'=>$request->discount_id, 'food_count'=>$request->food_count, 'stauts'=>$request->status]
         );
         return redirect()->back()->with(['successMassage'=>'FoodParty Data Updated Successfully.']);
     }

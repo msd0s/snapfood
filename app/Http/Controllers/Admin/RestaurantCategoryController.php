@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\FoodCategory;
 use App\Models\RestaurantCategory;
+use App\Rules\CategoryIdRule;
 use Illuminate\Http\Request;
 
 class RestaurantCategoryController extends Controller
@@ -45,7 +46,8 @@ class RestaurantCategoryController extends Controller
         $request->validate([
             'title'=>'required',
             'english_title'=>'required',
-            'parent_id'=>'required|numeric',
+            'parent_id'=>new CategoryIdRule(),
+            'status'=>'bail|required|numeric',
         ]);
 
         RestaurantCategory::create($request->except(['method','csrf']));
@@ -75,7 +77,7 @@ class RestaurantCategoryController extends Controller
         $catItem = $this->findCategoryData($id);
         $this->authorize('update', $catItem);
         $cats = $this->getAllRestaurantCategory();
-        return view('panel.restaurantcategory.newRestaurantCategory',compact(['catItem','cats']));
+        return view('panel.restaurantcategory.editRestaurantCategory',compact(['catItem','cats']));
     }
 
     /**
@@ -92,13 +94,15 @@ class RestaurantCategoryController extends Controller
         $request->validate([
             'title'=>'required',
             'english_title'=>'required',
-            'parent_id'=>'required|numeric',
+            'parent_id'=>new CategoryIdRule(),
+            'status'=>'bail|required|numeric',
         ]);
 
         $data = [
             'title'=>$request->title,
             'english_title'=>$request->english_title,
             'parent_id'=>$request->main_id,
+            'status'=>$request->status,
         ];
         RestaurantCategory::where('id',$id)->update($data);
         return redirect()->back()->with(['successMassage'=>'Restaurant Category Updated Successfully.']);

@@ -10,7 +10,7 @@ class Foodparty extends Model
     use HasFactory;
 
     protected $fillable = [
-        'restaurant_id','food_id','discount_id','food_count'
+        'restaurant_id','food_id','discount_id','food_count','status'
     ];
 
     public function food()

@@ -11,7 +11,7 @@ class RestaurantCategory extends Model
 
     protected $table = 'restaurantcategories';
     protected $fillable = [
-        'title','english_title','main_id'
+        'title','english_title','parent_id','status'
     ];
 
     public function restaurants()

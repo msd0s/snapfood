@@ -1,7 +1,7 @@
 @extends('panel.layout')
 
 @section('header')
-<title>ثبت کد تخفیف</title>
+<title>ویرایش کد تخفیف</title>
     <!--- Internal Select2 css-->
     <link href="{{ asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet">
     <!---Internal Fileupload css-->
@@ -87,43 +87,44 @@
                             ثبت کد تخفیف
                         </div>
                         @include('panel.sections.errors')
-                        <form class="needs-validation was-validated" method="post" action="{{ route('admin.discount.store') }}">
+                        <form class="needs-validation was-validated" method="post" action="{{ route('admin.discount.update',$discountItem->id) }}">
                             @csrf
+                            @method('patch')
                             <div class="form-row">
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="title">عنوان تخفیف</label>
-                                        <input type="text" class="form-control" id="title" name="title" placeholder="" value="{{ old('title') }}" tabindex="1">
+                                        <input type="text" class="form-control" id="title" name="title" placeholder="" value="{{ old('title',$discountItem['title']) }}" tabindex="1">
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="coupon">کد تخفیف</label>
-                                        <input type="text" class="form-control" id="coupon" name="coupon" placeholder="" value="{{ old('coupon') }}" tabindex="1">
+                                        <input type="text" class="form-control" id="coupon" name="coupon" placeholder="" value="{{ old('coupon',$discountItem['coupon']) }}" tabindex="1">
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="percent">درصد تخفیف</label>
-                                        <input type="number" class="form-control" id="percent" name="percent" placeholder="" value="{{ old('percent',0) }}" tabindex="8">
+                                        <input type="number" class="form-control" id="percent" name="percent" placeholder="" value="{{ old('percent',$discountItem['percent']) }}" tabindex="8">
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="price">مبلغ تخفیف (ريال)</label>
-                                        <input type="number" class="form-control" id="price" name="price" placeholder="" value="{{ old('price',0) }}" tabindex="9">
+                                        <input type="number" class="form-control" id="price" name="price" placeholder="" value="{{ old('price',$discountItem['price']) }}" tabindex="9">
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="start_date">تاریخ شروع تخفیف</label>
-                                        <input type="date" class="form-control" id="start_date" name="start_date" placeholder="" value="{{ old('start_date') }}" tabindex="10">
+                                        <input type="date" class="form-control" id="start_date" name="start_date" placeholder="" value="{{ old('start_date',$discountItem['start_date']) }}" tabindex="10">
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="expire_date">تاریخ پایان تخفیف</label>
-                                        <input type="date" class="form-control" id="expire_date" name="expire_date" placeholder="" value="{{ old('expire_date') }}" tabindex="11">
+                                        <input type="date" class="form-control" id="expire_date" name="expire_date" placeholder="" value="{{ old('expire_date',$discountItem['expire_date']) }}" tabindex="11">
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-4">

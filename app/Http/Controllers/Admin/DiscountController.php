@@ -48,6 +48,7 @@ class DiscountController extends Controller
             'percent'=>'bail|required|numeric|min:0|max:100',
             'start_date'=>'bail|required|date',
             'expire_date'=>'bail|required|date',
+            'status'=>'bail|required|numeric',
         ]);
 
         Discount::create($request->except(['method','csrf']));
@@ -77,7 +78,7 @@ class DiscountController extends Controller
         $discountItem = $this->findDiscountData($id);
         $this->authorize('update', $discountItem);
         $discounts = $this->getAllDiscounts();
-        return view('panel.discount.newDiscount',compact(['discountItem','discounts']));
+        return view('panel.discount.editDiscount',compact(['discountItem','discounts']));
     }
 
     /**
@@ -98,6 +99,7 @@ class DiscountController extends Controller
             'percent'=>'bail|required|numeric|min:0|max:100',
             'start_date'=>'bail|required|date',
             'expire_date'=>'bail|required|date',
+            'status'=>'bail|required|numeric',
         ]);
 
         $data = [
@@ -107,6 +109,7 @@ class DiscountController extends Controller
             'percent'=>$request->percent,
             'start_date'=>$request->start_date,
             'expire_date'=>$request->expire_date,
+            'status'=>$request->status,
         ];
         Discount::where('id',$id)->update($data);
         return redirect()->back()->with(['successMassage'=>'Discount Code Updated Successfully.']);

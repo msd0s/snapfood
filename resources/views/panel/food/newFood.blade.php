@@ -87,16 +87,13 @@
                             ثبت اطلاعات غذا
                         </div>
                         @include('panel.sections.errors')
-                        <form class="needs-validation was-validated" method="post" action="@isset($foodItem){{ route('seller.food.update',$foodItem->id) }}@else{{ route('seller.food.store') }}@endisset" enctype="multipart/form-data">
+                        <form class="needs-validation was-validated" method="post" action="{{ route('seller.food.store') }}" enctype="multipart/form-data">
                             @csrf
-                            @isset($foodItem)
-                                @method('patch')
-                            @endisset
                             <div class="form-row">
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="name">نام غذا</label>
-                                        <input type="text" class="form-control" id="name" name="name" placeholder="" value="{{ old('name',isset($foodItem) ? $foodItem['name'] : '') }}" tabindex="1">
+                                        <input type="text" class="form-control" id="name" name="name" placeholder="" value="{{ old('name') }}" tabindex="1">
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-4">
@@ -134,19 +131,28 @@
                                 <div class="col-md-12 col-12">
                                     <div class="form-group">
                                         <label for="raw_materials">مواد اولیه</label>
-                                        <textarea class="form-control" id="raw_materials" name="raw_materials" rows="6" placeholder="" tabindex="8">{{ old('raw_materials',isset($foodItem) ? $foodItem['raw_materials'] : '') }}</textarea>
+                                        <textarea class="form-control" id="raw_materials" name="raw_materials" rows="6" placeholder="" tabindex="8">{{ old('raw_materials') }}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="price">مبلغ</label>
-                                        <input type="text" class="form-control" id="price" name="price" placeholder="" value="{{ old('price',isset($foodItem) ? $foodItem['price'] : 0) }}" tabindex="1">
+                                        <input type="text" class="form-control" id="price" name="price" placeholder="" value="{{ old('price',0) }}" tabindex="1">
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="count">تعداد</label>
-                                        <input type="number" class="form-control" id="count" name="count" placeholder="" value="{{ old('count',isset($foodItem) ? $foodItem['count'] : 0) }}" tabindex="9">
+                                        <input type="number" class="form-control" id="count" name="count" placeholder="" value="{{ old('count',0) }}" tabindex="9">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-group">
+                                        <label for="status">وضعیت</label>
+                                        <select name="status" class="form-control" id="status">
+                                            <option value="1">فعال</option>
+                                            <option value="0">غیرفعال</option>
+                                        </select>
                                     </div>
                                 </div>
 

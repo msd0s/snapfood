@@ -89,11 +89,8 @@
                             ثبت ساعات کاری رستوران
                         </div>
                         @include('panel.sections.errors')
-                        <form class="needs-validation was-validated" method="post" action="@isset($scheduleItem){{ route('seller.schedule.update',$scheduleItem->id) }}@else{{ route('seller.schedule.store') }}@endisset">
+                        <form class="needs-validation was-validated" method="post" action="{{ route('seller.schedule.store') }}">
                             @csrf
-                            @isset($scheduleItem)
-                                @method('patch')
-                            @endisset
                             <div class="form-row">
                                 <div class="col-md-6 mb-4">
                                     <div class="form-group">
@@ -112,13 +109,13 @@
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="from_hours">از ساعت</label>
-                                        <input type="time" class="form-control" id="from_hours" name="from_hours" placeholder="" value="{{ old('from_hours',isset($scheduleItem) ? $scheduleItem['from_hours'] : '') }}" tabindex="1">
+                                        <input type="time" class="form-control" id="from_hours" name="from_hours" placeholder="" value="{{ old('from_hours') }}" tabindex="1">
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="to_hours">تا ساعت</label>
-                                        <input type="time" class="form-control" id="to_hours" name="to_hours" placeholder="" value="{{ old('to_hours',isset($scheduleItem) ? $scheduleItem['to_hours'] : '') }}" tabindex="1">
+                                        <input type="time" class="form-control" id="to_hours" name="to_hours" placeholder="" value="{{ old('to_hours') }}" tabindex="1">
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-4">
