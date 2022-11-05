@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('english_title');
-            $table->bigInteger('main_id');
+            $table->bigInteger('parent_id')->default(0);
+            $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });
     }

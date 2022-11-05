@@ -1,14 +1,14 @@
 <?php
 
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\DiscountController;
-use App\Http\Controllers\FoodCategoryController;
-use App\Http\Controllers\FoodController;
-use App\Http\Controllers\FoodPartyController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\DiscountController;
+use App\Http\Controllers\Admin\FoodCategoryController;
+use App\Http\Controllers\Admin\RestaurantCategoryController;
+use App\Http\Controllers\Seller\FoodController;
+use App\Http\Controllers\Seller\FoodPartyController;
+use App\Http\Controllers\Seller\RestaurantController;
+use App\Http\Controllers\Seller\ScheduleController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\RestaurantCategoryController;
-use App\Http\Controllers\RestaurantController;
-use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 

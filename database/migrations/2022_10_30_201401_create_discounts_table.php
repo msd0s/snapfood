@@ -21,6 +21,7 @@ return new class extends Migration
             $table->bigInteger('percent')->default(0);
             $table->date('start_date');
             $table->date('expire_date');
+            $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });
     }

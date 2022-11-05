@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('phone','15')->nullable();
             $table->string('avatar')->nullable();
             $table->smallInteger('role');
+            $table->tinyInteger('status')->default(1);
             $table->rememberToken();
             $table->timestamps();
         });

@@ -91,24 +91,22 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($restaurants as $restaurant)
                                     <tr>
-                                        <td>{{ $restaurant['name'] }}</td>
-                                        <td>{{ $restaurant['phone'] }}</td>
-                                        <td>{{ $restaurant['address'] }}</td>
+                                        <td>{{ $restaurant->name }}</td>
+                                        <td>{{ $restaurant->phone }}</td>
+                                        <td>{{ $restaurant->address->address }}</td>
                                         <td>{{ $restaurant->restaurant_status }}</td>
                                         <td>
-                                            <a href="{{ route('seller.restaurant.edit',$restaurant['id']) }}" class="btn btn-sm btn-info">
+                                            <a href="{{ route('seller.restaurant.edit',$restaurant->id) }}" class="btn btn-sm btn-info">
                                                 <i class="las la-pen"></i>
                                             </a>
-                                            <form action="{{ route('seller.restaurant.destroy',$restaurant['id']) }}" method="post" class="d-inline">
+                                            <form action="{{ route('seller.restaurant.destroy',$restaurant->id) }}" method="post" class="d-inline">
                                                 @csrf
                                                 @method('delete')
                                                 <button type="submit" class=" btn btn-sm btn-danger"><i class="las la-trash"></i></button>
                                             </form>
                                         </td>
                                     </tr>
-                                @endforeach
                                 </tbody>
                             </table>
                         </div>
