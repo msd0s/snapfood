@@ -17,7 +17,7 @@ class Restaurant extends Model
     protected function restaurantStatus(): Attribute
     {
         return Attribute::make(
-            fn ($value) => ["Disable", "Enable"][$value],
+            fn ($value) => ["غیرفعال", "فعال"][$value],
         );
     }
 
@@ -31,9 +31,9 @@ class Restaurant extends Model
         return $this->belongsToMany(RestaurantCategory::class, 'restaurant_restaurantcategories','restaurant_id','restaurantcategory_id');
     }
 
-    public function addresses()
+    public function address()
     {
-        return $this->hasMany(Address::class);
+        return $this->hasOne(Address::class);
     }
 
     public function foods()

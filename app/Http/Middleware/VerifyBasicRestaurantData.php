@@ -16,7 +16,6 @@ class VerifyBasicRestaurantData
      */
     public function handle(Request $request, Closure $next)
     {
-        //dd(auth()->user()->restaurant->name);
         if (auth()->user()->restaurant()->count()==0)
         {
             return redirect()->route('seller.first.restaurant.data.form');

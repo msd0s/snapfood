@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Seller;
 
+use App\Http\Controllers\Controller;
 use App\Models\Discount;
 use App\Models\Food;
 use App\Models\FoodCategory;
@@ -69,7 +70,7 @@ class FoodController extends Controller
 
         $food = Food::create($data);
         $food->foodCategories()->attach($request->foodcategory_id);
-        if ($request->discount_id!='-1')
+        if ($request->discount_id!=Food::NO_DISCOUNT)
         {
             $food->discounts()->attach($request->discount_id);
         }
@@ -139,7 +140,7 @@ class FoodController extends Controller
         Food::where('id',$id)->update($data);
         $food = $this->findFoodData($id);
         $food->foodCategories()->sync($request->foodcategory_id);
-        if ($request->discount_id!='-1')
+        if ($request->discount_id!=Food::NO_DISCOUNT)
         {
             $food->discounts()->sync($request->discount_id);
         }else

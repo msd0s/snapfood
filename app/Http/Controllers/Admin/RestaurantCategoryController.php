@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Food;
+use App\Http\Controllers\Controller;
 use App\Models\FoodCategory;
-use App\Rules\CategoryIdRule;
+use App\Models\RestaurantCategory;
 use Illuminate\Http\Request;
 
-class FoodCategoryController extends Controller
+class RestaurantCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +16,9 @@ class FoodCategoryController extends Controller
      */
     public function index()
     {
-        $this->authorize('viewAny', FoodCategory::class);
-        $cats = $this->getAllFoodCategory();
-        return view('panel.foodcategory.showFoodCategory',compact('cats'));
+        $this->authorize('viewAny', RestaurantCategory::class);
+        $cats = $this->getAllRestaurantCategory();
+        return view('panel.restaurantcategory.showRestaurantCategory',compact('cats'));
     }
 
     /**
@@ -28,9 +28,9 @@ class FoodCategoryController extends Controller
      */
     public function create()
     {
-        $this->authorize('create', FoodCategory::class);
-        $cats = $this->getAllFoodCategory();
-        return view('panel.foodcategory.newFoodCategory',compact('cats'));
+        $this->authorize('create', RestaurantCategory::class);
+        $cats = $this->getAllRestaurantCategory();
+        return view('panel.restaurantcategory.newRestaurantCategory',compact('cats'));
     }
 
     /**
@@ -41,15 +41,15 @@ class FoodCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create', FoodCategory::class);
+        $this->authorize('create', RestaurantCategory::class);
         $request->validate([
             'title'=>'required',
             'english_title'=>'required',
-            'main_id'=>new CategoryIdRule(),
+            'parent_id'=>'required|numeric',
         ]);
 
-        FoodCategory::create($request->except(['method','csrf']));
-        return redirect()->back()->with(['successMassage'=>'Food Category Created Successfully.']);
+        RestaurantCategory::create($request->except(['method','csrf']));
+        return redirect()->back()->with(['successMassage'=>'Restaurant Category Created Successfully.']);
     }
 
     /**
@@ -60,8 +60,8 @@ class FoodCategoryController extends Controller
      */
     public function show($id)
     {
-        $foodCategory = $this->findCategoryData($id);
-        $this->authorize('view', $foodCategory);
+        $restaurantCategory = $this->findCategoryData($id);
+        $this->authorize('view', $restaurantCategory);
     }
 
     /**
@@ -74,8 +74,8 @@ class FoodCategoryController extends Controller
     {
         $catItem = $this->findCategoryData($id);
         $this->authorize('update', $catItem);
-        $cats = $this->getAllFoodCategory();
-        return view('panel.foodcategory.newFoodCategory',compact(['catItem','cats']));
+        $cats = $this->getAllRestaurantCategory();
+        return view('panel.restaurantcategory.newRestaurantCategory',compact(['catItem','cats']));
     }
 
     /**
@@ -92,16 +92,16 @@ class FoodCategoryController extends Controller
         $request->validate([
             'title'=>'required',
             'english_title'=>'required',
-            'main_id'=>'required|numeric',
+            'parent_id'=>'required|numeric',
         ]);
 
         $data = [
             'title'=>$request->title,
             'english_title'=>$request->english_title,
-            'main_id'=>$request->main_id,
+            'parent_id'=>$request->main_id,
         ];
-        FoodCategory::where('id',$id)->update($data);
-        return redirect()->back()->with(['successMassage'=>'Food Category Updated Successfully.']);
+        RestaurantCategory::where('id',$id)->update($data);
+        return redirect()->back()->with(['successMassage'=>'Restaurant Category Updated Successfully.']);
     }
 
     /**
@@ -115,16 +115,16 @@ class FoodCategoryController extends Controller
         $category = $this->findCategoryData($id);
         $this->authorize('delete', $category);
         $category->delete();
-        return redirect()->route('admin.foodcategory.index')->with(['successMassage'=>'Food Category Deleted Successfully.']);
+        return redirect()->route('admin.restaurantcategory.index')->with(['successMassage'=>'Restaurant Category Deleted Successfully.']);
     }
 
-    private function getAllFoodCategory()
+    private function getAllRestaurantCategory()
     {
-        return FoodCategory::all();
+        return RestaurantCategory::all();
     }
 
     private function findCategoryData($id)
     {
-        return FoodCategory::find($id);
+        return RestaurantCategory::find($id);
     }
 }

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Seller;
 
+use App\Http\Controllers\Controller;
 use App\Models\Address;
 use App\Models\Restaurant;
 use App\Models\RestaurantCategory;
@@ -46,8 +47,8 @@ class RestaurantController extends Controller
     public function index()
     {
         $this->authorize('viewAny', Restaurant::class);
-        $restaurants = $this->getAllRestaurants();
-        return view('panel.restaurant.showRestaurant',compact(['restaurants']));
+        $restaurant = $this->getRestaurant();
+        return view('panel.restaurant.showRestaurant',compact(['restaurant']));
     }
 
     /**
@@ -175,9 +176,9 @@ class RestaurantController extends Controller
         return RestaurantCategory::all();
     }
 
-    public function getAllRestaurants()
+    public function getRestaurant()
     {
-        return Restaurant::all();
+        return auth()->user()->restaurant;
     }
 
     public function findRestaurantData($id)

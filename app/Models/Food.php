@@ -32,4 +32,6 @@ class Food extends Model
     {
         return $this->hasMany(Foodparty::class);
     }
+
+    public const NO_DISCOUNT=-1;
 }
