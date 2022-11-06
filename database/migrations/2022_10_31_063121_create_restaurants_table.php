@@ -24,8 +24,9 @@ return new class extends Migration
             $table->string('picture')->nullable();
             $table->bigInteger('send_price')->default(0);
             $table->tinyInteger('restaurant_status')->default(1);
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->softDeletes();
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

@@ -20,9 +20,10 @@ return new class extends Migration
             $table->string('address',900);
             $table->string('latitude');
             $table->string('longitude');
+            $table->softDeletes();
+            $table->timestamps();
             $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->timestamps();
         });
     }
 

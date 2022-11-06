@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('discount_id')->nullable();
             $table->integer('food_count');
             $table->tinyInteger('status')->default(1);
+            $table->softDeletes();
             $table->timestamps();
             $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
             $table->foreign('food_id')->references('id')->on('foods')->onDelete('cascade');

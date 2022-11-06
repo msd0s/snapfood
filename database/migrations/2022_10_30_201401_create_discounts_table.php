@@ -22,6 +22,7 @@ return new class extends Migration
             $table->date('start_date');
             $table->date('expire_date');
             $table->tinyInteger('status')->default(1);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('avatar')->nullable();
             $table->smallInteger('role');
             $table->tinyInteger('status')->default(1);
+            $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();
         });

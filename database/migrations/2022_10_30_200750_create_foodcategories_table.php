@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('english_title');
             $table->bigInteger('parent_id')->default(0);
             $table->tinyInteger('status')->default(1);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

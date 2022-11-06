@@ -22,6 +22,7 @@ return new class extends Migration
             $table->bigInteger('price')->default(0);
             $table->string('picture',250);
             $table->tinyInteger('status')->default(1);
+            $table->softDeletes();
             $table->timestamps();
             $table->foreign('restaurant_id')->references('id')->on('restaurants');
         });

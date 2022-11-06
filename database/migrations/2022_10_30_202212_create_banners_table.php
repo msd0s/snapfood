@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('alternate')->nullable();
             $table->string('picture');
             $table->tinyInteger('status')->default(1);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

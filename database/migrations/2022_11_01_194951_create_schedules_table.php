@@ -20,8 +20,9 @@ return new class extends Migration
             $table->time('from_hours')->nullable();
             $table->time('to_hours')->nullable();
             $table->tinyInteger('is_closed')->default(0);
-            $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
+            $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
         });
     }
 
