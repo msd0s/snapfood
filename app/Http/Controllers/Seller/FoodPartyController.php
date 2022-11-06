@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreFoodPartyRequest;
+use App\Http\Requests\UpdateFoodPartyRequest;
 use App\Models\Discount;
 use App\Models\Food;
 use App\Models\Foodparty;
@@ -43,15 +45,10 @@ class FoodPartyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreFoodPartyRequest $request)
     {
         $this->authorize('create', Foodparty::class);
-        $request->validate([
-            'food_id'=>'required|numeric|unique:foodparties',
-            'discount_id'=>new DiscountIdRule(),
-            'food_count'=>'required',
-            'status'=>'bail|required|numeric',
-        ]);
+        $request->validated();
 
         $foodParty = Foodparty::updateOrCreate(
             ['restaurant_id' => auth()->user()->restaurant->id,'food_id'=>$request->food_id],
@@ -94,16 +91,11 @@ class FoodPartyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateFoodPartyRequest $request, $id)
     {
         $foodPartyItem = $this->findFoodPartyItem($id);
         $this->authorize('update', $foodPartyItem);
-        $request->validate([
-            'food_id'=>'required|numeric',
-            'discount_id'=>new DiscountIdRule(),
-            'food_count'=>'required',
-            'status'=>'bail|required|numeric',
-        ]);
+        $request->validated();
 
         $foodParty = Foodparty::updateOrCreate(
             ['restaurant_id' => auth()->user()->restaurant->id,'food_id'=>$request->food_id],

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreFoodRequest;
+use App\Http\Requests\UpdateFoodRequest;
 use App\Models\Discount;
 use App\Models\Food;
 use App\Models\FoodCategory;
@@ -43,19 +45,10 @@ class FoodController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreFoodRequest $request)
     {
         $this->authorize('create', Food::class);
-        $request->validate([
-            'name'=>'required',
-            'foodcategory_id'=>'required',
-            'picture'=>'bail|required|mimes:jpg,jpeg,png,gif|max:4096',
-            'raw_materials'=>'required',
-            'price'=>'bail|required|numeric',
-            'count'=>'bail|required|numeric',
-            'discount_id'=>'bail|required|numeric',
-            'status'=>'bail|required|numeric',
-        ]);
+        $request->validated();
 
         $pictureFileName = time().'-'.$request->file('picture')->getClientOriginalName();
         $uploadImage = Storage::disk('public')->putFileAs('foods/',$request->file('picture'),$pictureFileName);
@@ -113,20 +106,11 @@ class FoodController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateFoodRequest $request, $id)
     {
         $foodItem = $this->findFoodData($id);
         $this->authorize('update', $foodItem);
-        $request->validate([
-            'name'=>'required',
-            'foodcategory_id'=>'required',
-            'picture'=>'bail|required|mimes:jpg,jpeg,png,gif|max:4096',
-            'raw_materials'=>'required',
-            'price'=>'bail|required|numeric',
-            'count'=>'bail|required|numeric',
-            'discount_id'=>'bail|required|numeric',
-            'status'=>'bail|required|numeric',
-        ]);
+        $request->validated();
 
 
         $pictureFileName = time().'-'.$request->file('picture')->getClientOriginalName();

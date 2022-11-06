@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreDiscountRequest;
+use App\Http\Requests\UpdateDiscountRequest;
 use App\Models\Discount;
 use Illuminate\Http\Request;
 
@@ -38,18 +40,10 @@ class DiscountController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreDiscountRequest $request)
     {
         $this->authorize('create', Discount::class);
-        $request->validate([
-            'title'=>'required',
-            'coupon'=>'bail|required|unique:discounts',
-            'price'=>'bail|required|numeric',
-            'percent'=>'bail|required|numeric|min:0|max:100',
-            'start_date'=>'bail|required|date',
-            'expire_date'=>'bail|required|date',
-            'status'=>'bail|required|numeric',
-        ]);
+        $request->validated();
 
         Discount::create($request->except(['method','csrf']));
         return redirect()->back()->with(['successMassage'=>'New Discount Created Successfully.']);
@@ -88,19 +82,11 @@ class DiscountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateDiscountRequest $request, $id)
     {
         $discount = $this->findDiscountData($id);
         $this->authorize('update', $discount);
-        $request->validate([
-            'title'=>'required',
-            'coupon'=>'bail|required|unique:discounts',
-            'price'=>'bail|required|numeric',
-            'percent'=>'bail|required|numeric|min:0|max:100',
-            'start_date'=>'bail|required|date',
-            'expire_date'=>'bail|required|date',
-            'status'=>'bail|required|numeric',
-        ]);
+        $request->validated();
 
         $data = [
             'title'=>$request->title,

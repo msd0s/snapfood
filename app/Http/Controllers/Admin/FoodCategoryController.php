@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreFoodCategoryRequest;
+use App\Http\Requests\UpdateFoodCategoryRequest;
 use App\Models\Food;
 use App\Models\FoodCategory;
 use App\Rules\CategoryIdRule;
@@ -40,15 +42,10 @@ class FoodCategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreFoodCategoryRequest $request)
     {
         $this->authorize('create', FoodCategory::class);
-        $request->validate([
-            'title'=>'required',
-            'english_title'=>'required',
-            'parent_id'=>new CategoryIdRule(),
-            'status'=>'bail|required|numeric',
-        ]);
+        $request->validated();
 
         FoodCategory::create($request->except(['method','csrf']));
         return redirect()->back()->with(['successMassage'=>'Food Category Created Successfully.']);
@@ -87,16 +84,11 @@ class FoodCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateFoodCategoryRequest $request, $id)
     {
         $catItem = $this->findCategoryData($id);
         $this->authorize('update', $catItem);
-        $request->validate([
-            'title'=>'required',
-            'english_title'=>'required',
-            'parent_id'=>new CategoryIdRule(),
-            'status'=>'bail|required|numeric',
-        ]);
+        $request->validated();
 
         $data = [
             'title'=>$request->title,

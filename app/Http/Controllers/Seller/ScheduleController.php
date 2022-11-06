@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreScheduleRequest;
+use App\Http\Requests\UpdateScheduleRequest;
 use App\Models\Schedule;
 use Illuminate\Http\Request;
 
@@ -37,15 +39,10 @@ class ScheduleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreScheduleRequest $request)
     {
         $this->authorize('create', Schedule::class);
-        $request->validate([
-            'day'=>'required',
-            'from_hours'=>'nullable|date_format:H:i',
-            'to_hours'=>'nullable|date_format:H:i',
-            'is_closed'=>'required',
-        ]);
+        $request->validated();
 
         $schedule = Schedule::updateOrCreate(
             ['restaurant_id' => auth()->user()->restaurant->id,'day'=>$request->day],
@@ -86,16 +83,11 @@ class ScheduleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateScheduleRequest $request, $id)
     {
         $scheduleItem = $this->findScheduleItem($id);
         $this->authorize('update', $scheduleItem);
-        $request->validate([
-            'day'=>'required',
-            'from_hours'=>'nullable|date_format:H:i',
-            'to_hours'=>'nullable|date_format:H:i',
-            'is_closed'=>'required',
-        ]);
+        $request->validated();
 
         $schedule = Schedule::updateOrCreate(
             ['restaurant_id' => auth()->user()->restaurant->id,'day'=>$request->day],

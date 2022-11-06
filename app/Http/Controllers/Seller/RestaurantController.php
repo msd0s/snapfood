@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreRestaurantRequest;
+use App\Http\Requests\UpdateRestaurantRequest;
 use App\Models\Address;
 use App\Models\Restaurant;
 use App\Models\RestaurantCategory;
@@ -19,16 +21,10 @@ class RestaurantController extends Controller
         return view('panel.restaurant.firstDataForRestaurant',compact(['cats']));
     }
 
-    public function storeRestaurantData(Request $request)
+    public function storeRestaurantData(StoreRestaurantRequest $request)
     {
         $this->authorize('create', Restaurant::class);
-        $request->validate([
-            'name'=>'required',
-            'phone'=>new PhoneRule(),
-            'address'=>'required',
-            'account_number'=>'bail|required|numeric',
-            'restaurantcategory_id'=>'required',
-        ]);
+        $request->validated();
         $request->merge(['user_id'=>auth()->user()->id]);
 
         $restaurant = Restaurant::create($request->except(['method','csrf','restaurantcategory_id']));
@@ -59,8 +55,6 @@ class RestaurantController extends Controller
     public function create()
     {
         $this->authorize('create', Restaurant::class);
-        /*$cats = $this->getAllRestaurantCategories();
-        return view('panel.restaurant.newRestaurant',compact('cats'));*/
     }
 
     /**
@@ -72,18 +66,6 @@ class RestaurantController extends Controller
     public function store(Request $request)
     {
         $this->authorize('create', Restaurant::class);
-        /*$request->validate([
-            'name'=>'required',
-            'phone'=>'bail|required|numeric|max:11',
-            'address'=>'required',
-            'account_number'=>'bail|required|numeric',
-            'picture'=>'bail|required|mimes:jpg,jpeg,png,gif|max:4096',
-            'send_price'=>'bail|required|numeric',
-            'restaurant_status'=>'required',
-        ]);
-
-        Discount::create($request->except(['method','csrf']));
-        return redirect()->back()->with(['successMassage'=>'New Restaurant Created Successfully.']);*/
     }
 
     /**
@@ -119,20 +101,11 @@ class RestaurantController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRestaurantRequest $request, $id)
     {
         $restaurantItem = $this->findRestaurantData($id);
         $this->authorize('update', $restaurantItem);
-        $request->validate([
-            'name'=>'required',
-            'phone'=>new PhoneRule(),
-            'address'=>'required',
-            'account_number'=>'bail|required|numeric',
-            'restaurantcategory_id'=>'required',
-            'picture'=>'bail|required|mimes:jpg,jpeg,png,gif|max:4096',
-            'send_price'=>'bail|required|numeric',
-            'restaurant_status'=>'required',
-        ]);
+        $request->validated();
 
 
         $pictureFileName = time().'-'.$request->file('picture')->getClientOriginalName();
