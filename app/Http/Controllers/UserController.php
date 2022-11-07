@@ -49,7 +49,7 @@ class UserController extends Controller
 
         $address = Address::updateOrCreate(
             ['user_id' => auth()->user()->id],
-            ['address' => $request->address, 'latitude' => $request->latitude, 'longitude' => $request->longitude]
+            ['title' => $request->title,'address' => $request->address, 'latitude' => $request->latitude, 'longitude' => $request->longitude, 'is_default' => $request->is_default]
         );
         return redirect()->back()->with('successMassage','Profile Data Was Updated Successfully.');
     }

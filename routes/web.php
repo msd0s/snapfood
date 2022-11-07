@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Admin\FoodCategoryController;
@@ -29,6 +30,7 @@ Route::middleware(['auth'])->group(function (){
         Route::get('/profile',[UserController::class,'profileForm'])->name('show.profile.form');
         Route::patch('/avatar/{id}/update',[UserController::class,'updateAvatar'])->whereNumber('id')->name('avatar.update');
         Route::patch('/profile/{id}/update',[UserController::class,'updateProfile'])->whereNumber('id')->name('profile.update');
+        Route::resource('/address', AddressController::class);
         Route::as('admin.')->group(function (){
             Route::get('/home',[AdminController::class,'index'])->name('index');
             Route::resource('/foodcategory',FoodCategoryController::class);

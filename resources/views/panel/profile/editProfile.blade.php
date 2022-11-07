@@ -305,6 +305,21 @@
                                                 });
                                             </script>
                                         </div>
+                                        <div class="col-md-6 col-12">
+                                            <div class="form-group">
+                                                <label for="title">عنوان آدرس</label>
+                                                <input type="text" class="form-control" id="title" name="title" placeholder="" value="{{ old('title',auth()->user()->addresses->first() ? auth()->user()->addresses->first()->title : '') }}" tabindex="1">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-4">
+                                            <div class="form-group">
+                                                <label for="is_default">آدرس پیش فرض</label>
+                                                <select name="is_default" class="form-control" id="is_default">
+                                                    <option value="1" @if(auth()->user()->addresses->first() && auth()->user()->addresses->first()->is_default==1) selected @endif>بله</option>
+                                                    <option value="0" @if(auth()->user()->addresses->first() && auth()->user()->addresses->first()->is_default==0) selected @endif>خیر</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                         <div class="col-md-12 mb-4">
                                             <label for="name">آدرس</label>
                                             <textarea class="form-control" rows="5" id="address" name="address" placeholder="" tabindex="1">{{ old('address',auth()->user()->addresses->first() ? auth()->user()->addresses->first()->address : '') }}</textarea>
