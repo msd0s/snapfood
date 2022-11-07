@@ -292,19 +292,6 @@
                                         </div>
                                         <div class="col-md-12 mb-4">
                                             <div id="mapid" class="center-block" style="width: 100%; height: 400px;"></div>
-                                            {{--<script>
-                                                var mymap = L.map('mapid');
-                                                var icon = new L.Icon.Default();
-                                                icon.options.shadowSize = [0,0];
-                                                L.tileLayer('https://api.neshan.org/v2/{id}/tiles/{z}/{x}/{y}?access_token=web.21d8c13d65494d1186ef58855d3c48c1', {
-                                                    attribution: 'Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-                                                    maxZoom: 18,
-                                                    id: 'mapbox/streets-v11',
-                                                    tileSize: 512,
-                                                    zoomOffset: -1,
-                                                }).addTo(mymap);
-                                                mymap.setView(new L.LatLng(53.4053, -6.3784), 13);
-                                            </script>--}}
                                             <script type="text/javascript">
                                                 var myMap = new L.Map('mapid', {
                                                     key: 'web.21d8c13d65494d1186ef58855d3c48c1',
@@ -395,9 +382,16 @@
     </script>
 
     <script>
+        var marker;
         myMap.on('click', onMapClick);
 
         function onMapClick(e) {
+            if (marker!=undefined)
+            {
+                myMap.removeLayer(marker);
+            }
+            marker = new L.Marker(e.latlng);
+            myMap.addLayer(marker);
             $('#lat').val(e.latlng.lat);
             $('#lng').val(e.latlng.lng);
         }

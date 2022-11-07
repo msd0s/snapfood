@@ -23,7 +23,7 @@ class FoodPartyController extends Controller
     {
         $this->authorize('viewAny', Foodparty::class);
         $foodparties = $this->getAllFoodParties(5);
-        return view('panel.foodparty.showFoodparty',compact(['foodparties']));
+        return view('panel.Seller.foodparty.showFoodparty',compact(['foodparties']));
     }
 
     /**
@@ -36,7 +36,7 @@ class FoodPartyController extends Controller
         $this->authorize('create', Foodparty::class);
         $discounts = Discount::all();
         $restaurants = auth()->user()->restaurant;
-        return view('panel.foodparty.newFoodparty',compact(['discounts','restaurants']));
+        return view('panel.Seller.foodparty.newFoodparty',compact(['discounts','restaurants']));
     }
 
     /**
@@ -81,7 +81,7 @@ class FoodPartyController extends Controller
         $this->authorize('update', $foodPartyItem);
         $discounts = Discount::all();
         $restaurants = auth()->user()->restaurant;
-        return view('panel.foodparty.editFoodparty',compact(['foodPartyItem','discounts','restaurants']));
+        return view('panel.Seller.foodparty.editFoodparty',compact(['foodPartyItem','discounts','restaurants']));
     }
 
     /**

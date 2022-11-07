@@ -21,7 +21,7 @@ class FoodCategoryController extends Controller
     {
         $this->authorize('viewAny', FoodCategory::class);
         $cats = $this->getAllFoodCategory();
-        return view('panel.foodcategory.showFoodCategory',compact('cats'));
+        return view('panel.Admin.foodcategory.showFoodCategory',compact('cats'));
     }
 
     /**
@@ -33,7 +33,7 @@ class FoodCategoryController extends Controller
     {
         $this->authorize('create', FoodCategory::class);
         $cats = $this->getAllFoodCategory();
-        return view('panel.foodcategory.newFoodCategory',compact('cats'));
+        return view('panel.Admin.foodcategory.newFoodCategory',compact('cats'));
     }
 
     /**
@@ -74,7 +74,7 @@ class FoodCategoryController extends Controller
         $catItem = $this->findCategoryData($id);
         $this->authorize('update', $catItem);
         $cats = $this->getAllFoodCategory();
-        return view('panel.foodcategory.editFoodCategory',compact(['catItem','cats']));
+        return view('panel.Admin.foodcategory.editFoodCategory',compact(['catItem','cats']));
     }
 
     /**

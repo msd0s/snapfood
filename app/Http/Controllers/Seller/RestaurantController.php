@@ -18,7 +18,7 @@ class RestaurantController extends Controller
     {
         $this->authorize('create', Restaurant::class);
         $cats = $this->getAllRestaurantCategories();
-        return view('panel.restaurant.firstDataForRestaurant',compact(['cats']));
+        return view('panel.Seller.restaurant.firstDataForRestaurant',compact(['cats']));
     }
 
     public function storeRestaurantData(StoreRestaurantRequest $request)
@@ -44,7 +44,7 @@ class RestaurantController extends Controller
     {
         $this->authorize('viewAny', Restaurant::class);
         $restaurant = $this->getRestaurant();
-        return view('panel.restaurant.showRestaurant',compact(['restaurant']));
+        return view('panel.Seller.restaurant.showRestaurant',compact(['restaurant']));
     }
 
     /**
@@ -91,7 +91,7 @@ class RestaurantController extends Controller
         $restaurantItem = $this->findRestaurantData($id);
         $this->authorize('update', $restaurantItem);
         $cats = $this->getAllRestaurantCategories();
-        return view('panel.restaurant.newRestaurant',compact(['restaurantItem','cats']));
+        return view('panel.Seller.restaurant.newRestaurant',compact(['restaurantItem','cats']));
     }
 
     /**

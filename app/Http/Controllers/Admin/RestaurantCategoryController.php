@@ -21,7 +21,7 @@ class RestaurantCategoryController extends Controller
     {
         $this->authorize('viewAny', RestaurantCategory::class);
         $cats = $this->getAllRestaurantCategory();
-        return view('panel.restaurantcategory.showRestaurantCategory',compact('cats'));
+        return view('panel.Admin.restaurantcategory.showRestaurantCategory',compact('cats'));
     }
 
     /**
@@ -33,7 +33,7 @@ class RestaurantCategoryController extends Controller
     {
         $this->authorize('create', RestaurantCategory::class);
         $cats = $this->getAllRestaurantCategory();
-        return view('panel.restaurantcategory.newRestaurantCategory',compact('cats'));
+        return view('panel.Admin.restaurantcategory.newRestaurantCategory',compact('cats'));
     }
 
     /**
@@ -74,7 +74,7 @@ class RestaurantCategoryController extends Controller
         $catItem = $this->findCategoryData($id);
         $this->authorize('update', $catItem);
         $cats = $this->getAllRestaurantCategory();
-        return view('panel.restaurantcategory.editRestaurantCategory',compact(['catItem','cats']));
+        return view('panel.Admin.restaurantcategory.editRestaurantCategory',compact(['catItem','cats']));
     }
 
     /**

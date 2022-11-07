@@ -19,7 +19,7 @@ class ScheduleController extends Controller
     {
         $this->authorize('viewAny', Schedule::class);
         $schedules = $this->getAllSchedules();
-        return view('panel.schedule.showSchedule',compact(['schedules']));
+        return view('panel.Seller.schedule.showSchedule',compact(['schedules']));
     }
 
     /**
@@ -30,7 +30,7 @@ class ScheduleController extends Controller
     public function create()
     {
         $this->authorize('create', Schedule::class);
-        return view('panel.schedule.newSchedule');
+        return view('panel.Seller.schedule.newSchedule');
     }
 
     /**
@@ -73,7 +73,7 @@ class ScheduleController extends Controller
     {
         $scheduleItem = $this->findScheduleItem($id);
         $this->authorize('update', $scheduleItem);
-        return view('panel.schedule.editSchedule',compact(['scheduleItem']));
+        return view('panel.Seller.schedule.editSchedule',compact(['scheduleItem']));
     }
 
     /**

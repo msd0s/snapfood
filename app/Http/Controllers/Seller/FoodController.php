@@ -23,7 +23,7 @@ class FoodController extends Controller
     {
         $this->authorize('viewAny', Food::class);
         $foods = $this->getPaginatadFoods(5);
-        return view('panel.food.showFood',compact(['foods']));
+        return view('panel.Seller.food.showFood',compact(['foods']));
     }
 
     /**
@@ -36,7 +36,7 @@ class FoodController extends Controller
         $this->authorize('create', Food::class);
         $cats = $this->getAllFoodCategories();
         $discounts = $this->getAllDiscounts();
-        return view('panel.food.newFood',compact(['cats','discounts']));
+        return view('panel.Seller.food.newFood',compact(['cats','discounts']));
     }
 
     /**
@@ -96,7 +96,7 @@ class FoodController extends Controller
         $this->authorize('update', $foodItem);
         $cats = $this->getAllFoodCategories();
         $discounts = $this->getAllDiscounts();
-        return view('panel.food.editFood',compact(['foodItem','cats','discounts']));
+        return view('panel.Seller.food.editFood',compact(['foodItem','cats','discounts']));
     }
 
     /**

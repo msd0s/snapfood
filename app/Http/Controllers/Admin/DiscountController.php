@@ -19,7 +19,7 @@ class DiscountController extends Controller
     {
         $this->authorize('viewAny', Discount::class);
         $discounts = $this->getAllDiscounts();
-        return view('panel.discount.showDiscount',compact('discounts'));
+        return view('panel.Admin.discount.showDiscount',compact('discounts'));
     }
 
     /**
@@ -31,7 +31,7 @@ class DiscountController extends Controller
     {
         $this->authorize('create', Discount::class);
         $discounts = $this->getAllDiscounts();
-        return view('panel.discount.newDiscount',compact('discounts'));
+        return view('panel.Admin.discount.newDiscount',compact('discounts'));
     }
 
     /**
@@ -72,7 +72,7 @@ class DiscountController extends Controller
         $discountItem = $this->findDiscountData($id);
         $this->authorize('update', $discountItem);
         $discounts = $this->getAllDiscounts();
-        return view('panel.discount.editDiscount',compact(['discountItem','discounts']));
+        return view('panel.Admin.discount.editDiscount',compact(['discountItem','discounts']));
     }
 
     /**

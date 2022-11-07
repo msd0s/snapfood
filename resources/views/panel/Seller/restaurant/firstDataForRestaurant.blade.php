@@ -117,7 +117,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-4">
-                                    <input id="lat" name="latitude" placeholder="مثال : 09151234567" type="hidden" value="{{ old('latitude',auth()->user()->addresses->first() ? auth()->user()->addresses->first()->latitude : '35.699739') }}) }}">
+                                    <input id="lat" name="latitude" placeholder="مثال : 09151234567" type="hidden" value="{{ old('latitude',auth()->user()->addresses->first() ? auth()->user()->addresses->first()->latitude : '35.699739') }}">
                                     <input id="lng" name="longitude" placeholder="مثال : 09151234567" type="hidden" value="{{ old('longitude',auth()->user()->addresses->first() ? auth()->user()->addresses->first()->longitude : '51.338097') }}">
                                 </div>
                                 <div class="col-md-12 mb-4">
@@ -207,9 +207,16 @@
         $('#phonenumber').inputmask("99999999999");
     </script>
     <script>
+        var marker;
         myMap.on('click', onMapClick);
 
         function onMapClick(e) {
+            if (marker!=undefined)
+            {
+                myMap.removeLayer(marker);
+            }
+            marker = new L.Marker(e.latlng);
+            myMap.addLayer(marker);
             $('#lat').val(e.latlng.lat);
             $('#lng').val(e.latlng.lng);
         }
