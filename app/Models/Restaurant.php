@@ -11,6 +11,7 @@ class Restaurant extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    use \Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
     protected $fillable = [
         'user_id','name','phone','score','comment_count','account_number','picture','send_price','restaurant_status'
@@ -41,6 +42,11 @@ class Restaurant extends Model
     public function foods()
     {
         return $this->hasMany(Food::class);
+    }
+
+    public function foodCategories()
+    {
+        return $this->belongsToMany(FoodCategory::class,'food_foodcategories','restaurant_id','foodcategory_id');
     }
 
     public function schedules()

@@ -47,10 +47,6 @@ class UserController extends Controller
             'phone' => $request->phone,
         ]);
 
-        $address = Address::updateOrCreate(
-            ['user_id' => auth()->user()->id],
-            ['title' => $request->title,'address' => $request->address, 'latitude' => $request->latitude, 'longitude' => $request->longitude, 'is_default' => $request->is_default]
-        );
         return redirect()->back()->with('successMassage','Profile Data Was Updated Successfully.');
     }
     /**

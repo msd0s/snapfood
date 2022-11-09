@@ -31,7 +31,7 @@ class RestaurantController extends Controller
         $restaurant->restaurantCategories()->attach($request->restaurantcategory_id);
         $address = Address::updateOrCreate(
             ['restaurant_id' => $restaurant->id],
-            ['address' => $request->address, 'latitude' => $request->latitude, 'longitude' => $request->longitude]
+            ['title'=>$request->title,'address' => $request->address, 'latitude' => $request->latitude, 'longitude' => $request->longitude,'is_default'=>$request->is_default]
         );
         return redirect()->back()->with(['successMassage'=>'New Restaurant Created Successfully.']);
     }

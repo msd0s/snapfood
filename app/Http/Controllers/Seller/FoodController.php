@@ -64,7 +64,7 @@ class FoodController extends Controller
         ];
 
         $food = Food::create($data);
-        $food->foodCategories()->attach($request->foodcategory_id);
+        $food->foodCategories()->attach($request->foodcategory_id,['restaurant_id'=>auth()->user()->restaurant->id]);
         if ($request->discount_id!=Food::NO_DISCOUNT)
         {
             $food->discounts()->attach($request->discount_id);
@@ -127,7 +127,7 @@ class FoodController extends Controller
         ];
         Food::where('id',$id)->update($data);
         $food = $this->findFoodData($id);
-        $food->foodCategories()->sync($request->foodcategory_id);
+        $food->foodCategories()->sync($request->foodcategory_id,['restaurant_id'=>auth()->user()->restaurant->id]);
         if ($request->discount_id!=Food::NO_DISCOUNT)
         {
             $food->discounts()->sync($request->discount_id);

@@ -31,7 +31,7 @@ class Schedule extends Model
     protected function isClosed(): Attribute
     {
         return Attribute::make(
-            fn ($value) => ["Opened","Closed"][$value],
+            fn ($value) => ["باز","بسته"][$value],
         );
     }
 

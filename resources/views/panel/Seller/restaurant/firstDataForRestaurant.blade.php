@@ -116,9 +116,15 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="col-md-6 col-12">
+                                    <div class="form-group">
+                                        <label for="title">عنوان آدرس</label>
+                                        <input type="text" class="form-control" id="title" name="title" placeholder="" value="{{ old('title',auth()->user()->addresses->where('restaurant_id','!=','')->first() ? auth()->user()->addresses->where('restaurant_id','!=','')->first()->title : '') }}" tabindex="1">
+                                    </div>
+                                </div>
                                 <div class="col-md-6 mb-4">
-                                    <input id="lat" name="latitude" placeholder="مثال : 09151234567" type="hidden" value="{{ old('latitude',auth()->user()->addresses->first() ? auth()->user()->addresses->first()->latitude : '35.699739') }}">
-                                    <input id="lng" name="longitude" placeholder="مثال : 09151234567" type="hidden" value="{{ old('longitude',auth()->user()->addresses->first() ? auth()->user()->addresses->first()->longitude : '51.338097') }}">
+                                    <input id="lat" name="latitude" placeholder="مثال : 09151234567" type="hidden" value="{{ old('latitude',auth()->user()->addresses->where('restaurant_id','!=','')->first() ? auth()->user()->addresses->where('restaurant_id','!=','')->first()->latitude : '35.699739') }}">
+                                    <input id="lng" name="longitude" placeholder="مثال : 09151234567" type="hidden" value="{{ old('longitude',auth()->user()->addresses->where('restaurant_id','!=','')->first() ? auth()->user()->addresses->where('restaurant_id','!=','')->first()->longitude : '51.338097') }}">
                                 </div>
                                 <div class="col-md-12 mb-4">
                                     <div id="mapid" class="center-block" style="width: 100%; height: 400px;"></div>
@@ -139,6 +145,15 @@
                                     <div class="form-group">
                                         <label for="address">آدرس رستوران</label>
                                         <textarea class="form-control" id="address" name="address" rows="6" placeholder="" tabindex="8">{{ old('address',isset($restaurantItem) ? $restaurantItem['address'] : '') }}</textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-group">
+                                        <label for="is_default">آدرس پیش فرض</label>
+                                        <select name="is_default" class="form-control" id="is_default">
+                                            <option value="1" @if(auth()->user()->addresses->where('restaurant_id','!=','')->first() && auth()->user()->addresses->where('restaurant_id','!=','')->first()->is_default==1) selected @endif>بله</option>
+                                            <option value="0" @if(auth()->user()->addresses->where('restaurant_id','!=','')->first() && auth()->user()->addresses->where('restaurant_id','!=','')->first()->is_default==0) selected @endif>خیر</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">

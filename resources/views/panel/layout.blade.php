@@ -228,9 +228,7 @@
                         <path
                             d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm5.5 1.5v2a1 1 0 0 0 1 1h2l-3-3z"/>
                     </svg>
-                    <span class="side-menu__label">آدرس ها</span><span class="badge badge-success side-badge"
-                                                                             id="foodcatmassagecount">0</span><i
-                        class="angle fe fe-chevron-down"></i></a>
+                    <span class="side-menu__label">آدرس ها</span><i class="angle fe fe-chevron-down"></i></a>
                 <ul class="slide-menu">
                     <li><a class="slide-item" href="{{ route('address.create') }}">ثبت آدرس جدید</a></li>
                     <li><a class="slide-item" href="{{ route('address.index') }}">مدیریت آدرس ها</a></li>
@@ -245,9 +243,7 @@
                         <path
                             d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm5.5 1.5v2a1 1 0 0 0 1 1h2l-3-3z"/>
                     </svg>
-                    <span class="side-menu__label">دسته بندی غذا</span><span class="badge badge-success side-badge"
-                                                                             id="foodcatmassagecount">0</span><i
-                        class="angle fe fe-chevron-down"></i></a>
+                    <span class="side-menu__label">دسته بندی غذا</span><i class="angle fe fe-chevron-down"></i></a>
                 <ul class="slide-menu">
                     <li><a class="slide-item" href="{{ route('admin.foodcategory.create') }}">ثبت دسته بندی جدید</a></li>
                     <li><a class="slide-item" href="{{ route('admin.foodcategory.index') }}">مدیریت دسته بندی ها</a></li>
@@ -261,9 +257,7 @@
                         <path
                             d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm5.5 1.5v2a1 1 0 0 0 1 1h2l-3-3z"/>
                     </svg>
-                    <span class="side-menu__label">دسته بندی رستوران</span><span class="badge badge-success side-badge"
-                                                                             id="restaurantcatmassagecount">0</span><i
-                        class="angle fe fe-chevron-down"></i></a>
+                    <span class="side-menu__label">دسته بندی رستوران</span><i class="angle fe fe-chevron-down"></i></a>
                 <ul class="slide-menu">
                     <li><a class="slide-item" href="{{ route('admin.restaurantcategory.create') }}">ثبت دسته بندی جدید</a></li>
                     <li><a class="slide-item" href="{{ route('admin.restaurantcategory.index') }}">مدیریت دسته بندی ها</a></li>
@@ -295,9 +289,7 @@
                             <path
                                 d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm5.5 1.5v2a1 1 0 0 0 1 1h2l-3-3z"/>
                         </svg>
-                        <span class="side-menu__label">لیست غذاها</span><span class="badge badge-success side-badge"
-                                                                                 id="foodmassagecount">0</span><i
-                            class="angle fe fe-chevron-down"></i></a>
+                        <span class="side-menu__label">لیست غذاها</span><i class="angle fe fe-chevron-down"></i></a>
                     <ul class="slide-menu">
                         <li><a class="slide-item" href="{{ route('seller.food.create') }}">ثبت غذای جدید</a></li>
                         <li><a class="slide-item" href="{{ route('seller.food.index') }}">مدیریت غذاها</a></li>

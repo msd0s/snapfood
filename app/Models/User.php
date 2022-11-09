@@ -18,6 +18,8 @@ class User extends Authenticatable
     public const ROLE_ADMIN='Administrator';
     public const ROLE_SELLER='Seller';
     public const ROLE_USER='User';
+
+    public const REGISTER_STATUS=1;
     /**
      * The attributes that are mass assignable.
      *

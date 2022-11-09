@@ -286,44 +286,6 @@
                                                 <input class="form-control" id="mobile" name="mobile" placeholder="مثال : 09151234567" type="text" value="{{ old('mobile',auth()->user()->mobile) }}">
                                             </div><!-- input-group -->
                                         </div>
-                                        <div class="col-md-6 mb-4">
-                                            <input id="lat" name="latitude" placeholder="مثال : 09151234567" type="hidden" value="{{ old('latitude',auth()->user()->addresses->first() ? auth()->user()->addresses->first()->latitude : '35.699739') }}">
-                                            <input id="lng" name="longitude" placeholder="مثال : 09151234567" type="hidden" value="{{ old('longitude',auth()->user()->addresses->first() ? auth()->user()->addresses->first()->longitude : '51.338097') }}">
-                                        </div>
-                                        <div class="col-md-12 mb-4">
-                                            <div id="mapid" class="center-block" style="width: 100%; height: 400px;"></div>
-                                            <script type="text/javascript">
-                                                var myMap = new L.Map('mapid', {
-                                                    key: 'web.21d8c13d65494d1186ef58855d3c48c1',
-                                                    maptype: 'dreamy',
-                                                    center: [35.699739, 51.338097],
-                                                    zoom: 14,
-                                                    poi: true,
-                                                    onPoiLayerSwitched: function (state) {
-                                                        console.log(state);
-                                                    }
-                                                });
-                                            </script>
-                                        </div>
-                                        <div class="col-md-6 col-12">
-                                            <div class="form-group">
-                                                <label for="title">عنوان آدرس</label>
-                                                <input type="text" class="form-control" id="title" name="title" placeholder="" value="{{ old('title',auth()->user()->addresses->first() ? auth()->user()->addresses->first()->title : '') }}" tabindex="1">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 mb-4">
-                                            <div class="form-group">
-                                                <label for="is_default">آدرس پیش فرض</label>
-                                                <select name="is_default" class="form-control" id="is_default">
-                                                    <option value="1" @if(auth()->user()->addresses->first() && auth()->user()->addresses->first()->is_default==1) selected @endif>بله</option>
-                                                    <option value="0" @if(auth()->user()->addresses->first() && auth()->user()->addresses->first()->is_default==0) selected @endif>خیر</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12 mb-4">
-                                            <label for="name">آدرس</label>
-                                            <textarea class="form-control" rows="5" id="address" name="address" placeholder="" tabindex="1">{{ old('address',auth()->user()->addresses->first() ? auth()->user()->addresses->first()->address : '') }}</textarea>
-                                        </div>
                                     </div>
                                     <button class="btn btn-primary submit-fn mt-2" type="submit" tabindex="10">ذخیره اطلاعات</button>
                                 </form>
@@ -394,21 +356,5 @@
     <script>
         $('#mobile').inputmask("99999999999");
         $('#phonenumber').inputmask("99999999999");
-    </script>
-
-    <script>
-        var marker;
-        myMap.on('click', onMapClick);
-
-        function onMapClick(e) {
-            if (marker!=undefined)
-            {
-                myMap.removeLayer(marker);
-            }
-            marker = new L.Marker(e.latlng);
-            myMap.addLayer(marker);
-            $('#lat').val(e.latlng.lat);
-            $('#lng').val(e.latlng.lng);
-        }
     </script>
 @stop
