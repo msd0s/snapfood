@@ -43,6 +43,10 @@ class AddressController extends Controller
         $this->authorize('access-profile');
         $request->validated();
         $request->merge(['user_id'=>auth()->user()->id]);
+        if ($request->is_default==1)
+        {
+            auth()->user()->addresses()->update(['is_default'=>0]);
+        }
         Address::create($request->except(['method','csrf']));
         return redirect()->back()->with(['successMassage'=>'New Address Created Successfully.']);
     }
@@ -92,6 +96,10 @@ class AddressController extends Controller
             'longitude'=>$request->longitude,
             'is_default'=>$request->is_default,
         ];
+        if ($request->is_default==1)
+        {
+            auth()->user()->addresses()->update(['is_default'=>0]);
+        }
         $address->update($data);
         return redirect()->back()->with(['successMassage'=>'Address Updated Successfully.']);
     }
