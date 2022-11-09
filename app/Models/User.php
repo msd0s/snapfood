@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Relations\UserRelationsTrait;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -14,6 +15,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
     use SoftDeletes;
+    use UserRelationsTrait;
 
     public const ROLE_ADMIN='Administrator';
     public const ROLE_SELLER='Seller';
@@ -55,27 +57,5 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected function role(): Attribute
-    {
-        return Attribute::make(
-            fn ($value) => ["Administrator", "Seller",'User'][$value],
-        );
-    }
-
-    //add Relation For Restaurant and User
-    public function restaurant()
-    {
-        return $this->hasOne(Restaurant::class);
-    }
-
-    public function addresses()
-    {
-        return $this->hasMany(Address::class);
-    }
-
-    public function foods()
-    {
-        return $this->hasManyThrough(Food::class,Restaurant::class);
-    }
 
 }

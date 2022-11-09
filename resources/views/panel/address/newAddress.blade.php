@@ -119,7 +119,7 @@
                                 </div>
                                 <div class="col-md-12 col-12">
                                     <div class="form-group">
-                                        <label for="address">آدرس رستوران</label>
+                                        <label for="address">آدرس</label>
                                         <textarea class="form-control" id="address" name="address" rows="6" placeholder="" tabindex="8">{{ old('address',isset($restaurantItem) ? $restaurantItem['address'] : '') }}</textarea>
                                     </div>
                                 </div>
