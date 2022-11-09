@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Functions\RestaurantCategoryFunctionsTrait;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreRestaurantCategoryRequest;
 use App\Http\Requests\UpdateRestaurantCategoryRequest;
@@ -12,6 +13,7 @@ use Illuminate\Http\Request;
 
 class RestaurantCategoryController extends Controller
 {
+    use RestaurantCategoryFunctionsTrait;
     /**
      * Display a listing of the resource.
      *
@@ -114,13 +116,4 @@ class RestaurantCategoryController extends Controller
         return redirect()->route('admin.restaurantcategory.index')->with(['successMassage'=>'Restaurant Category Deleted Successfully.']);
     }
 
-    private function getAllRestaurantCategory()
-    {
-        return RestaurantCategory::all();
-    }
-
-    private function findCategoryData($id)
-    {
-        return RestaurantCategory::find($id);
-    }
 }

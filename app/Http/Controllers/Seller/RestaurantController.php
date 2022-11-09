@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Seller\Functions\RestaurantFunctionsTrait;
 use App\Http\Requests\StoreRestaurantRequest;
 use App\Http\Requests\UpdateRestaurantRequest;
 use App\Models\Address;
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\Storage;
 
 class RestaurantController extends Controller
 {
+    use RestaurantFunctionsTrait;
     public function createRestaurantDataForm()
     {
         $this->authorize('create', Restaurant::class);
@@ -144,18 +146,4 @@ class RestaurantController extends Controller
         return redirect()->route('seller.restaurant.index')->with(['successMassage'=>'Restaurant Deleted Successfully.']);
     }
 
-    public function getAllRestaurantCategories()
-    {
-        return RestaurantCategory::all();
-    }
-
-    public function getRestaurant()
-    {
-        return auth()->user()->restaurant;
-    }
-
-    public function findRestaurantData($id)
-    {
-        return Restaurant::find($id);
-    }
 }

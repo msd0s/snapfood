@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Seller\Functions\FoodFunctionsTrait;
 use App\Http\Requests\StoreFoodRequest;
 use App\Http\Requests\UpdateFoodRequest;
 use App\Models\Discount;
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\Storage;
 
 class FoodController extends Controller
 {
+    use FoodFunctionsTrait;
     /**
      * Display a listing of the resource.
      *
@@ -150,30 +152,5 @@ class FoodController extends Controller
         $this->authorize('delete', $foodItem);
         $foodItem->delete();
         return redirect()->route('seller.food.index')->with(['successMassage'=>'Food Deleted Successfully.']);
-    }
-
-    private function getAllFoodCategories()
-    {
-        return FoodCategory::all();
-    }
-
-    private function getAllDiscounts()
-    {
-        return Discount::all();
-    }
-
-    private function getAllFoods()
-    {
-        return Food::all();
-    }
-
-    private function getPaginatadFoods($count)
-    {
-        return Food::paginate($count);
-    }
-
-    private function findFoodData($id)
-    {
-        return Food::find($id);
     }
 }

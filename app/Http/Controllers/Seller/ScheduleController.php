@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Seller\Functions\ScheduleFunctionsTrait;
 use App\Http\Requests\StoreScheduleRequest;
 use App\Http\Requests\UpdateScheduleRequest;
 use App\Models\Schedule;
@@ -10,6 +11,7 @@ use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
 {
+    use ScheduleFunctionsTrait;
     /**
      * Display a listing of the resource.
      *
@@ -108,18 +110,6 @@ class ScheduleController extends Controller
         $this->authorize('delete', $scheduleItem);
         $scheduleItem->delete();
         return redirect()->route('seller.schedule.index')->with(['successMassage'=>'Schedule Deleted Successfully.']);
-    }
-
-
-    private function getAllSchedules()
-    {
-        $restaurant_id = auth()->user()->restaurant->id;
-        return Schedule::all()->where('restaurant_id',$restaurant_id);
-    }
-
-    private function findScheduleItem($id)
-    {
-        return Schedule::find($id);
     }
 
 }

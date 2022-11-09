@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Seller\Functions\FoodPartyFunctionsTrait;
 use App\Http\Requests\StoreFoodPartyRequest;
 use App\Http\Requests\UpdateFoodPartyRequest;
 use App\Models\Discount;
@@ -14,6 +15,7 @@ use Illuminate\Http\Request;
 
 class FoodPartyController extends Controller
 {
+    use FoodPartyFunctionsTrait;
     /**
      * Display a listing of the resource.
      *
@@ -118,15 +120,4 @@ class FoodPartyController extends Controller
         return redirect()->route('seller.foodparty.index')->with(['successMassage'=>'FoodParty Deleted Successfully.']);
     }
 
-
-    private function getAllFoodParties($count)
-    {
-        $restaurant_id = auth()->user()->restaurant->id;
-        return Foodparty::where('restaurant_id',$restaurant_id)->paginate($count);
-    }
-
-    private function findFoodPartyItem($id)
-    {
-        return Foodparty::find($id);
-    }
 }

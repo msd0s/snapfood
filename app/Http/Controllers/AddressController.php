@@ -117,8 +117,4 @@ class AddressController extends Controller
         return redirect()->route('address.index')->with(['successMassage'=>'Address Deleted Successfully.']);
     }
 
-    private function getAllAddresses()
-    {
-        return Address::all()->where('user_id','!=','');
-    }
 }

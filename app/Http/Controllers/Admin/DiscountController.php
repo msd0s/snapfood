@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Functions\DiscountFunctionsTrait;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreDiscountRequest;
 use App\Http\Requests\UpdateDiscountRequest;
@@ -10,6 +11,7 @@ use Illuminate\Http\Request;
 
 class DiscountController extends Controller
 {
+    use DiscountFunctionsTrait;
     /**
      * Display a listing of the resource.
      *
@@ -115,13 +117,4 @@ class DiscountController extends Controller
         return redirect()->route('admin.discount.index')->with(['successMassage'=>'Discount Code Deleted Successfully.']);
     }
 
-    private function getAllDiscounts()
-    {
-        return Discount::all();
-    }
-
-    private function findDiscountData($id)
-    {
-        return Discount::find($id);
-    }
 }
