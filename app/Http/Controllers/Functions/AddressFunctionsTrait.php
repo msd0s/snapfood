@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Seller\Functions;
+namespace App\Http\Controllers\Functions;
 
 use App\Models\Address;
 use Illuminate\Database\Eloquent\Casts\Attribute;

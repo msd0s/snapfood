@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Functions\AddressFunctionsTrait;
 use App\Http\Requests\StoreAddressRequest;
 use App\Http\Requests\UpdateAddressRequest;
 use App\Models\Address;
@@ -9,6 +10,7 @@ use Illuminate\Http\Request;
 
 class AddressController extends Controller
 {
+    use AddressFunctionsTrait;
     /**
      * Display a listing of the resource.
      *
