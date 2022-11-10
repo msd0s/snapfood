@@ -59,10 +59,9 @@ class ScheduleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Schedule $schedule)
     {
-        $scheduleItem = $this->findScheduleItem($id);
-        $this->authorize('view', $scheduleItem);
+        $this->authorize('view', $schedule);
     }
 
     /**
@@ -71,11 +70,10 @@ class ScheduleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Schedule $schedule)
     {
-        $scheduleItem = $this->findScheduleItem($id);
-        $this->authorize('update', $scheduleItem);
-        return view('panel.Seller.schedule.editSchedule',compact(['scheduleItem']));
+        $this->authorize('update', $schedule);
+        return view('panel.Seller.schedule.editSchedule',['scheduleItem'=>$schedule]);
     }
 
     /**
@@ -85,10 +83,9 @@ class ScheduleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateScheduleRequest $request, $id)
+    public function update(UpdateScheduleRequest $request, Schedule $schedule)
     {
-        $scheduleItem = $this->findScheduleItem($id);
-        $this->authorize('update', $scheduleItem);
+        $this->authorize('update', $schedule);
         $request->validated();
 
         $schedule = Schedule::updateOrCreate(
@@ -104,11 +101,10 @@ class ScheduleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Schedule $schedule)
     {
-        $scheduleItem = $this->findScheduleItem($id);
-        $this->authorize('delete', $scheduleItem);
-        $scheduleItem->delete();
+        $this->authorize('delete', $schedule);
+        $schedule->delete();
         return redirect()->route('seller.schedule.index')->with(['successMassage'=>'Schedule Deleted Successfully.']);
     }
 

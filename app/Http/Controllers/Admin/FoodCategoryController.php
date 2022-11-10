@@ -59,10 +59,9 @@ class FoodCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(FoodCategory $foodcategory)
     {
-        $foodCategory = $this->findCategoryData($id);
-        $this->authorize('view', $foodCategory);
+        $this->authorize('view', $foodcategory);
     }
 
     /**
@@ -71,12 +70,11 @@ class FoodCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(FoodCategory $foodcategory)
     {
-        $catItem = $this->findCategoryData($id);
-        $this->authorize('update', $catItem);
+        $this->authorize('update', $foodcategory);
         $cats = $this->getAllFoodCategory();
-        return view('panel.Admin.foodcategory.editFoodCategory',compact(['catItem','cats']));
+        return view('panel.Admin.foodcategory.editFoodCategory',['catItem'=>$foodcategory,'cats'=>$cats]);
     }
 
     /**
@@ -86,10 +84,9 @@ class FoodCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateFoodCategoryRequest $request, $id)
+    public function update(UpdateFoodCategoryRequest $request, FoodCategory $foodcategory)
     {
-        $catItem = $this->findCategoryData($id);
-        $this->authorize('update', $catItem);
+        $this->authorize('update', $foodcategory);
         $request->validated();
 
         $data = [
@@ -98,7 +95,7 @@ class FoodCategoryController extends Controller
             'parent_id'=>$request->main_id,
             'status'=>$request->status,
         ];
-        FoodCategory::where('id',$id)->update($data);
+        $foodcategory->update($data);
         return redirect()->back()->with(['successMassage'=>'Food Category Updated Successfully.']);
     }
 
@@ -108,11 +105,10 @@ class FoodCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(FoodCategory $foodcategory)
     {
-        $category = $this->findCategoryData($id);
-        $this->authorize('delete', $category);
-        $category->delete();
+        $this->authorize('delete', $foodcategory);
+        $foodcategory->delete();
         return redirect()->route('admin.foodcategory.index')->with(['successMassage'=>'Food Category Deleted Successfully.']);
     }
 

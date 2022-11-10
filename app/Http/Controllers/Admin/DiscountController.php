@@ -57,9 +57,8 @@ class DiscountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Discount $discount)
     {
-        $discount = $this->findDiscountData($id);
         $this->authorize('view', $discount);
     }
 
@@ -69,10 +68,10 @@ class DiscountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Discount $discount)
     {
-        $discountItem = $this->findDiscountData($id);
-        $this->authorize('update', $discountItem);
+        $this->authorize('update', $discount);
+        $discountItem = $discount;
         $discounts = $this->getAllDiscounts();
         return view('panel.Admin.discount.editDiscount',compact(['discountItem','discounts']));
     }
@@ -84,9 +83,8 @@ class DiscountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateDiscountRequest $request, $id)
+    public function update(UpdateDiscountRequest $request, Discount $discount)
     {
-        $discount = $this->findDiscountData($id);
         $this->authorize('update', $discount);
         $request->validated();
 
@@ -99,7 +97,7 @@ class DiscountController extends Controller
             'expire_date'=>$request->expire_date,
             'status'=>$request->status,
         ];
-        Discount::where('id',$id)->update($data);
+        $discount->update($data);
         return redirect()->back()->with(['successMassage'=>'Discount Code Updated Successfully.']);
     }
 
@@ -109,9 +107,8 @@ class DiscountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Discount $discount)
     {
-        $discount = $this->findDiscountData($id);
         $this->authorize('delete', $discount);
         $discount->delete();
         return redirect()->route('admin.discount.index')->with(['successMassage'=>'Discount Code Deleted Successfully.']);

@@ -119,9 +119,15 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="col-md-6 col-12">
+                                    <div class="form-group">
+                                        <label for="title">عنوان آدرس</label>
+                                        <input type="text" class="form-control" id="title" name="title" placeholder="" value="{{ old('title',isset($restaurantItem) ? $restaurantItem->address->title : '') }}" tabindex="1">
+                                    </div>
+                                </div>
                                 <div class="col-md-6 mb-4">
-                                    <input id="lat" name="latitude" placeholder="مثال : 09151234567" type="hidden" value="{{ old('latitude') }}">
-                                    <input id="lng" name="longitude" placeholder="مثال : 09151234567" type="hidden" value="{{ old('latitude') }}">
+                                    <input id="lat" name="latitude" placeholder="" type="hidden" value="{{ old('latitude',$restaurantItem->address->latitude) }}">
+                                    <input id="lng" name="longitude" placeholder="" type="hidden" value="{{ old('longitude',$restaurantItem->address->longitude) }}">
                                 </div>
                                 <div class="col-md-12 mb-4">
                                     <div id="mapid" class="center-block" style="width: 100%; height: 400px;"></div>
@@ -141,7 +147,16 @@
                                 <div class="col-md-12 col-12">
                                     <div class="form-group">
                                         <label for="address">آدرس رستوران</label>
-                                        <textarea class="form-control" id="address" name="address" rows="6" placeholder="" tabindex="8">{{ old('address',isset($restaurantItem) ? $restaurantItem['address'] : '') }}</textarea>
+                                        <textarea class="form-control" id="address" name="address" rows="6" placeholder="" tabindex="8">{{ old('address',isset($restaurantItem) ? $restaurantItem->address->address : '') }}</textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-group">
+                                        <label for="is_default">آدرس پیش فرض</label>
+                                        <select name="is_default" class="form-control" id="is_default">
+                                            <option value="1" @if(isset($restaurantItem) && $restaurantItem->address->is_default==1) selected @endif>بله</option>
+                                            <option value="0" @if(isset($restaurantItem) && $restaurantItem->address->is_default==0) selected @endif>خیر</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
@@ -232,9 +247,16 @@
         $('#phonenumber').inputmask("99999999999");
     </script>
     <script>
+        var marker;
         myMap.on('click', onMapClick);
 
         function onMapClick(e) {
+            if (marker!=undefined)
+            {
+                myMap.removeLayer(marker);
+            }
+            marker = new L.Marker(e.latlng);
+            myMap.addLayer(marker);
             $('#lat').val(e.latlng.lat);
             $('#lng').val(e.latlng.lng);
         }

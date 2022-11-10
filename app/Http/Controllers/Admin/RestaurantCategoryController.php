@@ -59,10 +59,9 @@ class RestaurantCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(RestaurantCategory $restaurantcategory)
     {
-        $restaurantCategory = $this->findCategoryData($id);
-        $this->authorize('view', $restaurantCategory);
+        $this->authorize('view', $restaurantcategory);
     }
 
     /**
@@ -71,12 +70,11 @@ class RestaurantCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(RestaurantCategory $restaurantcategory)
     {
-        $catItem = $this->findCategoryData($id);
-        $this->authorize('update', $catItem);
+        $this->authorize('update', $restaurantcategory);
         $cats = $this->getAllRestaurantCategory();
-        return view('panel.Admin.restaurantcategory.editRestaurantCategory',compact(['catItem','cats']));
+        return view('panel.Admin.restaurantcategory.editRestaurantCategory',['catItem'=>$restaurantcategory,'cats'=>$cats]);
     }
 
     /**
@@ -86,10 +84,9 @@ class RestaurantCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRestaurantCategoryRequest $request, $id)
+    public function update(UpdateRestaurantCategoryRequest $request, RestaurantCategory $restaurantcategory)
     {
-        $catItem = $this->findCategoryData($id);
-        $this->authorize('update', $catItem);
+        $this->authorize('update', $restaurantcategory);
         $request->validated();
 
         $data = [
@@ -98,7 +95,7 @@ class RestaurantCategoryController extends Controller
             'parent_id'=>$request->main_id,
             'status'=>$request->status,
         ];
-        RestaurantCategory::where('id',$id)->update($data);
+        $restaurantcategory->update($data);
         return redirect()->back()->with(['successMassage'=>'Restaurant Category Updated Successfully.']);
     }
 
@@ -108,11 +105,10 @@ class RestaurantCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(RestaurantCategory $restaurantcategory)
     {
-        $category = $this->findCategoryData($id);
-        $this->authorize('delete', $category);
-        $category->delete();
+        $this->authorize('delete', $restaurantcategory);
+        $restaurantcategory->delete();
         return redirect()->route('admin.restaurantcategory.index')->with(['successMassage'=>'Restaurant Category Deleted Successfully.']);
     }
 

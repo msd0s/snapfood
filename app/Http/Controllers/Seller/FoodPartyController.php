@@ -65,10 +65,9 @@ class FoodPartyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Foodparty $foodparty)
     {
-        $foodPartyItem = $this->findFoodPartyItem($id);
-        $this->authorize('view', $foodPartyItem);
+        $this->authorize('view', $foodparty);
     }
 
     /**
@@ -77,13 +76,12 @@ class FoodPartyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(FoodParty $foodparty)
     {
-        $foodPartyItem = $this->findFoodPartyItem($id);
-        $this->authorize('update', $foodPartyItem);
+        $this->authorize('update', $foodparty);
         $discounts = Discount::all();
         $restaurants = auth()->user()->restaurant;
-        return view('panel.Seller.foodparty.editFoodparty',compact(['foodPartyItem','discounts','restaurants']));
+        return view('panel.Seller.foodparty.editFoodparty',['foodPartyItem'=>$foodparty,'discounts'=>$discounts,'restaurants'=>$restaurants]);
     }
 
     /**
@@ -93,10 +91,9 @@ class FoodPartyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateFoodPartyRequest $request, $id)
+    public function update(UpdateFoodPartyRequest $request, Foodparty $foodparty)
     {
-        $foodPartyItem = $this->findFoodPartyItem($id);
-        $this->authorize('update', $foodPartyItem);
+        $this->authorize('update', $foodparty);
         $request->validated();
 
         $foodParty = Foodparty::updateOrCreate(
@@ -112,11 +109,10 @@ class FoodPartyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(FoodParty $foodparty)
     {
-        $foodPartyItem = $this->findFoodPartyItem($id);
-        $this->authorize('delete', $foodPartyItem);
-        $foodPartyItem->delete();
+        $this->authorize('delete', $foodparty);
+        $foodparty->delete();
         return redirect()->route('seller.foodparty.index')->with(['successMassage'=>'FoodParty Deleted Successfully.']);
     }
 

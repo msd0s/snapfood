@@ -76,10 +76,9 @@ class RestaurantController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Restaurant $restaurant)
     {
-        $restaurantItem = $this->findRestaurantData($id);
-        $this->authorize('view', $restaurantItem);
+        $this->authorize('view', $restaurant);
     }
 
     /**
@@ -88,12 +87,11 @@ class RestaurantController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Restaurant $restaurant)
     {
-        $restaurantItem = $this->findRestaurantData($id);
-        $this->authorize('update', $restaurantItem);
+        $this->authorize('update', $restaurant);
         $cats = $this->getAllRestaurantCategories();
-        return view('panel.Seller.restaurant.newRestaurant',compact(['restaurantItem','cats']));
+        return view('panel.Seller.restaurant.newRestaurant',['restaurantItem'=>$restaurant,'cats'=>$cats]);
     }
 
     /**
@@ -103,10 +101,9 @@ class RestaurantController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRestaurantRequest $request, $id)
+    public function update(UpdateRestaurantRequest $request, Restaurant $restaurant)
     {
-        $restaurantItem = $this->findRestaurantData($id);
-        $this->authorize('update', $restaurantItem);
+        $this->authorize('update', $restaurant);
         $request->validated();
 
 
@@ -121,13 +118,12 @@ class RestaurantController extends Controller
             'send_price'=>$request->send_price,
             'restaurant_status'=>$request->restaurant_status,
         ];
-        $restaurantId = Restaurant::where('id',$id)->update($data);
-        $restaurant = Restaurant::find($restaurantId);
+        $restaurant->update($data);
         $restaurant->restaurantCategories()->sync($request->restaurantcategory_id);
 
         $address = Address::updateOrCreate(
             ['restaurant_id' => $restaurant->id],
-            ['address' => $request->address, 'latitude' => $request->latitude, 'longitude' => $request->longitude]
+            ['title'=>$request->title,'address' => $request->address, 'latitude' => $request->latitude, 'longitude' => $request->longitude,'is_default'=>$request->is_default]
         );
         return redirect()->back()->with(['successMassage'=>'Restaurant Data Updated Successfully.']);
     }
@@ -138,9 +134,8 @@ class RestaurantController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Restaurant $restaurant)
     {
-        $restaurant = $this->findRestaurantData($id);
         $this->authorize('delete', $restaurant);
         $restaurant->delete();
         return redirect()->route('seller.restaurant.index')->with(['successMassage'=>'Restaurant Deleted Successfully.']);

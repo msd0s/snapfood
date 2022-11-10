@@ -80,10 +80,9 @@ class FoodController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Food $food)
     {
-        $foodItem = $this->findFoodData($id);
-        $this->authorize('view', $foodItem);
+        $this->authorize('view', $food);
     }
 
     /**
@@ -92,13 +91,12 @@ class FoodController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Food $food)
     {
-        $foodItem = $this->findFoodData($id);
-        $this->authorize('update', $foodItem);
+        $this->authorize('update', $food);
         $cats = $this->getAllFoodCategories();
         $discounts = $this->getAllDiscounts();
-        return view('panel.Seller.food.editFood',compact(['foodItem','cats','discounts']));
+        return view('panel.Seller.food.editFood',['foodItem'=>$food,'cats'=>$cats,'discounts'=>$discounts]);
     }
 
     /**
@@ -108,10 +106,9 @@ class FoodController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateFoodRequest $request, $id)
+    public function update(UpdateFoodRequest $request, Food $food)
     {
-        $foodItem = $this->findFoodData($id);
-        $this->authorize('update', $foodItem);
+        $this->authorize('update', $food);
         $request->validated();
 
 
@@ -127,8 +124,7 @@ class FoodController extends Controller
             'count'=>$request->count,
             'status'=>$request->status,
         ];
-        Food::where('id',$id)->update($data);
-        $food = $this->findFoodData($id);
+        $food->update($data);
         $food->foodCategories()->sync($request->foodcategory_id,['restaurant_id'=>auth()->user()->restaurant->id]);
         if ($request->discount_id!=Food::NO_DISCOUNT)
         {
@@ -146,11 +142,10 @@ class FoodController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Food $food)
     {
-        $foodItem = $this->findFoodData($id);
-        $this->authorize('delete', $foodItem);
-        $foodItem->delete();
+        $this->authorize('delete', $food);
+        $food->delete();
         return redirect()->route('seller.food.index')->with(['successMassage'=>'Food Deleted Successfully.']);
     }
 }
