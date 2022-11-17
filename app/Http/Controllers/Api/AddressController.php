@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Api\Functions\AddressFunctionsTrait;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAddressRequest;
 use App\Http\Resources\AddressResource;
@@ -10,6 +11,7 @@ use Illuminate\Http\Request;
 
 class AddressController extends Controller
 {
+    use AddressFunctionsTrait;
     public function getAddresses()
     {
         $addresses = auth()->user()->addresses;
@@ -79,11 +81,4 @@ class AddressController extends Controller
         }
     }
 
-    private function accessDenied()
-    {
-        return response()->json([
-            'status'=> false,
-            'message' => 'You Dont Have Access To This Address'
-        ],403);
-    }
 }

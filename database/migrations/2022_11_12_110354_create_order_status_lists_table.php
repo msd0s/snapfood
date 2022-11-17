@@ -13,13 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('orderstatuslists', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->string('tracking_code')->nullable(); //code rahgiri hamel(post,tipax,peyk,...)
-            $table->string('order_code')->nullable(); //code peygiri sabt nahayi baraye namayesh be karbar
-            $table->string('status')->default(0); //sefaresh nahayi shode ya na
+            $table->unsignedBigInteger('order_id');
+            $table->unsignedBigInteger('orderstatus_id');
+            $table->unsignedBigInteger('user_id'); //status tavasot che kasi sabt shode
+            $table->softDeletes();
             $table->timestamps();
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
+            $table->foreign('orderstatus_id')->references('id')->on('orderstatuslists')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
@@ -31,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('orderstatuslists');
     }
 };

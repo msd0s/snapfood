@@ -2,25 +2,30 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Api\Functions\ProfileFunctionsTrait;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\UpdateProfileRequest;
 use App\Http\Resources\ProfileResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
+    use ProfileFunctionsTrait;
     public function getProfile()
     {
         $userData = auth()->user();
         return ProfileResource::make($userData);
     }
 
-    public function updateProfile(Request $request,User $profile)
+    public function updateProfile(UpdateProfileRequest $request,User $profile)
     {
         try {
             if ($profile->id==auth()->user()->id)
             {
-                $profile->update();
+                $data = $request->validated();
+                $data['password'] = $this->bcryptPassword($data['password']);
+                $profile->update($data);
                 return response()->json([
                     'status'=> true,
                     'message' => 'Profile Updated Successfully'
@@ -37,11 +42,4 @@ class ProfileController extends Controller
         }
     }
 
-    private function accessDenied()
-    {
-        return response()->json([
-            'status'=> false,
-            'message' => 'You Dont Have Access To This Address'
-        ],403);
-    }
 }

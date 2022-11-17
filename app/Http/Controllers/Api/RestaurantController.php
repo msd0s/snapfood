@@ -2,19 +2,40 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Api\Functions\RestaurantFunctionsTrait;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreAddressRequest;
 use App\Http\Resources\AllRestaurantsResource;
 use App\Http\Resources\RestaurantCategoryResource;
 use App\Http\Resources\RestaurantFoodsResource;
 use App\Http\Resources\RestaurantResource;
+use App\Models\Address;
 use App\Models\Restaurant;
+use App\Models\RestaurantCategory;
 use Illuminate\Http\Request;
 
 class RestaurantController extends Controller
 {
-    public function getAllRestaurants()
+    use RestaurantFunctionsTrait;
+    public function getAllRestaurants(Request $request)
     {
-        return AllRestaurantsResource::collection(Restaurant::all());
+        $restaurants = Restaurant::distinct();
+        if (isset($request->type))
+        {
+            $restaurants = $restaurants->type($request->type);
+        }
+        if (isset($request->is_open) && is_numeric($request->is_open))
+        {
+            $restaurants = $restaurants->open($request->is_open);
+        }
+        if (isset($request->score_gt))
+        {
+            $restaurants = $restaurants->score($request->score_gt);
+        }
+
+        $restaurants = $restaurants->get();
+
+        return AllRestaurantsResource::collection($restaurants);
     }
 
     public function getRestaurantData(Restaurant $restaurant)
@@ -88,13 +109,5 @@ class RestaurantController extends Controller
                 'message' => $th->getMessage()
             ], 500);
         }
-    }
-
-    private function accessDenied()
-    {
-        return response()->json([
-            'status'=> false,
-            'message' => 'You Dont Have Access To This Address'
-        ],403);
     }
 }
