@@ -16,6 +16,9 @@ class OrderStatusSeeder extends Seeder
     public function run()
     {
         OrderStatus::create(
+            ['title'=>'پرداخت نشده','bgcolor'=>'#CC0D0D','status'=>1]
+        );
+        OrderStatus::create(
             ['title'=>'در حال بررسی','bgcolor'=>'#F96D11','status'=>1]
         );
         OrderStatus::create(

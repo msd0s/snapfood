@@ -14,8 +14,10 @@ class Order extends Model
     use OrderScopesTrait;
 
     protected $fillable = [
-        'user_id','restaurant_id','orderstatus_id','tracking_code','order_code','status'
+        'user_id','address_id','restaurant_id','orderstatus_id','tracking_code','order_code','status'
     ];
 
     public const NOT_COMPLETE_ORDER = 0;
+    public const COMPLETE_ORDER = 1;
+    public const COMPLETE_ORDERSTATUS = 2;
 }

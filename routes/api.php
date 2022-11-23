@@ -45,7 +45,7 @@ Route::middleware('auth:sanctum')->group(function (){
         Route::post('/add', [CartController::class,'addToCart']);
         Route::patch('/add', [CartController::class,'updateCart']);
         Route::get('/{cart}', [CartController::class,'getCartInformations']);
-        Route::post('/{cart}/pay', [CartController::class,'payCart']);
+        Route::post('/{cart}/pay', [CartController::class,'payCart'])->whereNumber('cart');
     });
 });
 

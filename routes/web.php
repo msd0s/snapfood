@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\FoodCategoryController;
 use App\Http\Controllers\Admin\RestaurantCategoryController;
 use App\Http\Controllers\Seller\FoodController;
 use App\Http\Controllers\Seller\FoodPartyController;
+use App\Http\Controllers\Seller\OrderController;
 use App\Http\Controllers\Seller\RestaurantController;
 use App\Http\Controllers\Seller\ScheduleController;
 use App\Http\Controllers\HomeController;
@@ -49,6 +50,11 @@ Route::middleware(['auth'])->group(function (){
                 Route::resource('/foodparty', FoodPartyController::class);
                 Route::resource('/restaurant', RestaurantController::class);
                 Route::resource('/schedule', ScheduleController::class);
+                Route::prefix('orders')->group(function (){
+                    Route::patch('/{order}',[OrderController::class,'updateStatus'])->whereNumber('order')->name('orderstatus.update');
+                    Route::get('/{order}/foods',[OrderController::class,'showOrderFoods'])->whereNumber('order')->name('orderfoods.show');
+                    Route::get('/archivedorders',[OrderController::class,'showArchivedOrders'])->whereNumber('order')->name('archivedorder.show');
+                });
             });
         });
         Route::as('user.')->group(function (){

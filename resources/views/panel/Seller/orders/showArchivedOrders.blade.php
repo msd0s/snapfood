@@ -1,3 +1,49 @@
+@extends('panel.layout')
+
+@section('header')
+    <title>لیست غذاهای سفارش</title>
+    <!--- Internal Select2 css-->
+    <link href="{{ asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet">
+    <!---Internal Fileupload css-->
+    <link href="{{ asset('assets/plugins/fileuploads/css/fileupload.css') }}" rel="stylesheet" type="text/css"/>
+    <!---Internal Fancy uploader css-->
+    <link href="{{ asset('assets/plugins/fancyuploder/fancy_fileupload.css') }}" rel="stylesheet" />
+    <!--Internal Sumoselect css-->
+    <link rel="stylesheet" href="{{ asset('assets/plugins/sumoselect/sumoselect-rtl.css') }}">
+    <!--Internal  TelephoneInput css-->
+    <link rel="stylesheet" href="{{ asset('assets/plugins/telephoneinput/telephoneinput-rtl.css') }}">
+    <style>
+        .select2
+        {
+            width: 100% !important;
+        }
+        .jumps-prevent
+        {
+            padding-top: 31.5px !important;
+        }
+        .select2
+        {
+            width: 100% !important;
+            height: 40px;
+        }
+        .selection,.select2-selection
+        {
+            height: 40px !important;
+        }
+        .select2-selection__rendered
+        {
+            padding-top: 5px;
+        }
+        .select2-selection__arrow
+        {
+            margin: 5px 0px 0px 10px !important;
+        }
+    </style>
+    <link href="{{ asset('css/leaflet.css') }}" rel="stylesheet" type="text/css">
+    <script src="{{ asset('js/leaflet.js') }}" type="text/javascript"></script>
+@stop
+
+@section('content')
     <div class="container-fluid">
         <!-- breadcrumb -->
         <div class="breadcrumb-header justify-content-between">
@@ -53,7 +99,6 @@
                                     <th class="wd-lg-20p"><span>مبلغ کل سفارش</span></th>
                                     <th class="wd-lg-20p"><span>آدرس ارسال</span></th>
                                     <th class="wd-lg-20p"><span>وضعیت سفارش</span></th>
-                                    <th class="wd-lg-20p"><span>تغییر وضعیت</span></th>
                                     <th class="wd-lg-20p">عملیات</th>
                                 </tr>
                                 </thead>
@@ -65,19 +110,6 @@
                                         <td>{{ $order->address->address }}</td>
                                         <td>
                                             <p class="px-2 py-2 text-center rounded mb-0" style="background-color: {{ $order->orderstatus['bgcolor'] }};color: white;">{{ $order->orderstatus['title'] }}</p>
-                                        </td>
-                                        <td>
-                                            <form method="post" action="{{ route('seller.orderstatus.update',$order['id']) }}" class="text-center">
-                                                @csrf
-                                                @method('patch')
-                                                <select name="orderStatus" class="form-control">
-                                                    @forelse($orderStatuses as $key=>$status)
-                                                        <option value="{{ $status['id'] }}">{{ $status['title'] }}</option>
-                                                    @empty
-                                                    @endforelse
-                                                </select>
-                                                <button type="submit" class="btn btn-primary">تغییر وضعیت سفارش</button>
-                                            </form>
                                         </td>
                                         <td>
                                             <a href="{{ route('seller.orderfoods.show',$order['id']) }}" class="btn btn-sm btn-success">
@@ -99,3 +131,65 @@
         <!-- row closed  -->
     </div>
 
+@stop
+
+@section('footer')
+    <!-- Internal Select2 js-->
+    <script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
+    <!--Internal Fileuploads js-->
+    <script src="{{ asset('assets/plugins/fileuploads/js/fileupload.js') }}"></script>
+    <script src="{{ asset('assets/plugins/fileuploads/js/file-upload.js') }}"></script>
+    <!--Internal Fancy uploader js-->
+    <script src="{{ asset('assets/plugins/fancyuploder/jquery.ui.widget.js') }}"></script>
+    <script src="{{ asset('assets/plugins/fancyuploder/jquery.fileupload.js') }}"></script>
+    <script src="{{ asset('assets/plugins/fancyuploder/jquery.iframe-transport.js') }}"></script>
+    <script src="{{ asset('assets/plugins/fancyuploder/jquery.fancy-fileupload.js') }}"></script>
+    <script src="{{ asset('assets/plugins/fancyuploder/fancy-uploader.js') }}"></script>
+    <!--Internal  Form-elements js-->
+    <script src="{{ asset('assets/js/advanced-form-elements.js') }}"></script>
+    <script src="{{ asset('assets/js/select2.js') }}"></script>
+    <!--Internal  jquery.maskedinput js -->
+    <script src="{{ asset('assets/plugins/jquery.maskedinput/jquery.maskedinput.js') }}"></script>
+    <!--Internal  spectrum-colorpicker js -->
+    <script src="{{ asset('assets/plugins/spectrum-colorpicker/spectrum.js') }}"></script>
+    <!--Internal Ion.rangeSlider.min js -->
+    <script src="{{ asset('assets/plugins/ion-rangeslider/js/ion.rangeSlider.min.js') }}"></script>
+    <!--Internal  jquery-simple-datetimepicker js -->
+    <script src="{{ asset('assets/plugins/amazeui-datetimepicker/js/amazeui.datetimepicker.min.js') }}"></script>
+    <!-- Ionicons js -->
+    <script src="{{ asset('assets/plugins/jquery-simple-datetimepicker/jquery.simple-dtpicker.js') }}"></script>
+    <!--Internal  pickerjs js -->
+    <script src="{{ asset('assets/plugins/pickerjs/picker.min.js') }}"></script>
+    <!-- Internal form-elements js -->
+    <script src="{{ asset('assets/js/form-elements.js') }}"></script>
+    <!-- Sticky js -->
+    <script src="{{ asset('assets/js/sticky.js') }}"></script>
+    <!--Internal  pickerjs js -->
+    <script src="{{ asset('assets/plugins/jquery-simple-datetimepicker/jquery.simple-dtpicker.js') }}"></script>
+    <!--Internal Sumoselect js-->
+    <script src="{{ asset('assets/plugins/sumoselect/jquery.sumoselect.js') }}"></script>
+    <!-- Internal TelephoneInput js-->
+    <script src="{{ asset('assets/plugins/telephoneinput/telephoneinput.js') }}"></script>
+    <script src="{{ asset('assets/plugins/telephoneinput/inttelephoneinput.js') }}"></script>
+    <script src="{{ asset('plugins/input-mask/jquery.inputmask.bundle.min.js') }}"></script>
+    <script src="{{ asset('plugins/input-mask/input-mask.js') }}"></script>
+    <script>
+        $('#mobile').inputmask("99999999999");
+        $('#phonenumber').inputmask("99999999999");
+    </script>
+    <script>
+        var marker;
+        myMap.on('click', onMapClick);
+
+        function onMapClick(e) {
+            if (marker!=undefined)
+            {
+                myMap.removeLayer(marker);
+            }
+            marker = new L.Marker(e.latlng);
+            myMap.addLayer(marker);
+            $('#lat').val(e.latlng.lat);
+            $('#lng').val(e.latlng.lng);
+        }
+    </script>
+@stop

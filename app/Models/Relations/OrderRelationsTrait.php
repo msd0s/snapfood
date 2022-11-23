@@ -1,6 +1,7 @@
 <?php
 namespace App\Models\Relations;
 
+use App\Models\Address;
 use App\Models\OrderFoods;
 use App\Models\OrderStatus;
 use App\Models\Restaurant;
@@ -25,7 +26,12 @@ trait OrderRelationsTrait {
 
     public function orderStatus()
     {
-        return $this->hasOne(OrderStatus::class);
+        return $this->belongsTo(OrderStatus::class,'orderstatus_id');
+    }
+
+    public function address()
+    {
+        return $this->belongsTo(Address::class);
     }
 
 }

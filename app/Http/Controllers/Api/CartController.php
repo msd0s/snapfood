@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Api\Functions\OrderFunctionsTrait;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\StoreOrderRequest;
+use App\Http\Requests\CompletePayRequest;
 use App\Http\Resources\OrderResource;
 use App\Models\Address;
 use App\Models\Food;
@@ -15,6 +16,7 @@ use App\Models\OrderFoods;
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 
 class CartController extends Controller
 {
@@ -84,6 +86,25 @@ class CartController extends Controller
             return OrderResource::make($cart);
         }
         return $this->orderJsonResponse(false,'You Dont Have Permission To Access This Cart.',403);
+    }
+
+    public function payCart(CompletePayRequest $request,Order $cart)
+    {
+        try {
+            $request->validated();
+            if ($cart['user_id'] == auth()->user()->id)
+            {
+                if(in_array($request->address_id,auth()->user()->addresses->pluck('id')->toArray()))
+                {
+                    $cart->update(['address_id'=>$request->address_id,'orderstatus_id'=>Order::COMPLETE_ORDERSTATUS,'status'=>Order::COMPLETE_ORDER,'order_code'=>Str::random(12)]);
+                    return $this->orderJsonResponse(true,'Your Payment Completed Successfully.',200);
+                }
+                return $this->orderJsonResponse(false,'Your Address Id Is Incorrect.',403);
+            }
+            return $this->orderJsonResponse(false,'You Dont Have Permission To Access This Cart.',403);
+        } catch (\Throwable $th) {
+            return $this->orderJsonResponse(false,$th->getMessage(),500);
+        }
     }
 
 }

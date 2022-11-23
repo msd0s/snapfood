@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\OrderStatus;
 use Illuminate\Http\Request;
 
 class SellerController extends Controller
@@ -15,8 +16,9 @@ class SellerController extends Controller
      */
     public function index()
     {
-        $orders = Order::all()->where('restaurant_id',auth()->user()->restaurant->id)->where('status',0);
-        return view('panel.index',compact(['orders']));
+        $orderStatuses = OrderStatus::all();
+        $orders = Order::distinct()->where('restaurant_id',auth()->user()->restaurant?->id)->where('status',1)->where('orderstatus_id','!=',5)->paginate(5);
+        return view('panel.index',compact(['orders','orderStatuses']));
     }
 
     /**
