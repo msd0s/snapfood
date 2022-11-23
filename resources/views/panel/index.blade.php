@@ -6,6 +6,11 @@
 
 @section('content')
 
+    @can('seller-role')
+        @include('panel.Seller.orders.showOrders')
+    @endcan
+
+    @can('admin-role')
     <div class="container-fluid">
         <!-- breadcrumb -->
         <div class="breadcrumb-header justify-content-between">
@@ -435,6 +440,7 @@
         </div>
         <!-- /row -->
     </div>
+    @endcan
 
 @stop
 

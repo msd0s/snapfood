@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class SellerController extends Controller
@@ -14,7 +15,8 @@ class SellerController extends Controller
      */
     public function index()
     {
-        //
+        $orders = Order::all()->where('restaurant_id',auth()->user()->restaurant->id)->where('status',0);
+        return view('panel.index',compact(['orders']));
     }
 
     /**

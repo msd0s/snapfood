@@ -17,4 +17,7 @@ class Foodparty extends Model
         'restaurant_id','food_id','discount_id','food_count','status'
     ];
 
+    public const FOODPARTY_START_TIME="12:01 AM";
+    public const FOODPARTY_END_TIME="10:00 PM";
+
 }

@@ -10,6 +10,7 @@ use App\Http\Controllers\Seller\FoodPartyController;
 use App\Http\Controllers\Seller\RestaurantController;
 use App\Http\Controllers\Seller\ScheduleController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Seller\SellerController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -38,6 +39,7 @@ Route::middleware(['auth'])->group(function (){
             Route::resource('/discount', DiscountController::class);
         });
         Route::as('seller.')->group(function (){
+            Route::get('/index', [SellerController::class,'index'])->name('index');
             Route::middleware(['avoid.create.multiple.restaurant'])->group(function (){
                 Route::get('/restaurant/set-restaurant-data',[RestaurantController::class,'createRestaurantDataForm'])->name('first.restaurant.data.form');
                 Route::post('/restaurant/store-restaurant-data',[RestaurantController::class,'storeRestaurantData'])->name('first.restaurant.data.store');
@@ -50,7 +52,7 @@ Route::middleware(['auth'])->group(function (){
             });
         });
         Route::as('user.')->group(function (){
-
+            Route::get('/dashboard', [UserController::class,'dashboard'])->name('index');
         });
     });
 });

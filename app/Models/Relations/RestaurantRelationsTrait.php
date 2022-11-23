@@ -5,6 +5,7 @@ use App\Models\Address;
 use App\Models\Food;
 use App\Models\FoodCategory;
 use App\Models\Foodparty;
+use App\Models\Order;
 use App\Models\Restaurant;
 use App\Models\RestaurantCategory;
 use App\Models\Schedule;
@@ -52,5 +53,10 @@ trait RestaurantRelationsTrait {
     public function foodparties()
     {
         return $this->hasMany(Foodparty::class);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 }
