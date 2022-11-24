@@ -9,7 +9,7 @@ use App\Http\Requests\Api\StoreOrderRequest;
 use App\Http\Requests\CompletePayRequest;
 use App\Http\Resources\OrderResource;
 use App\Jobs\ChangeOrderStatusEmailJob;
-use App\Mail\ChangeOrderStatusMail;
+//use App\Mail\ChangeOrderStatusMail;
 use App\Models\Address;
 use App\Models\Food;
 use App\Models\Foodparty;
@@ -111,7 +111,7 @@ class CartController extends Controller
                             return $this->orderJsonResponse($status,$message,200);
                         }
                         $cart->update(['address_id'=>$request->address_id,'orderstatus_id'=>Order::COMPLETE_ORDERSTATUS,'status'=>Order::COMPLETE_ORDER,'order_code'=>Str::random(12)]);
-                        //$this->sendChangeOrderStatusEmail($cart);
+                        $this->sendChangeOrderStatusEmail($cart);
                         $this->decreaseFoodsCount($cart->orderfoods);
                         return $this->orderJsonResponse(true,'Your Payment Completed Successfully.',200);
                     }
@@ -134,5 +134,4 @@ class CartController extends Controller
         }
         return $this->orderJsonResponse(false,'You Dont Have Permission To Remove This Item',403);
     }
-
 }

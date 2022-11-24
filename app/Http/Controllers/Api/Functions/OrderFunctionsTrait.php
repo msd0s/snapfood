@@ -262,7 +262,10 @@ trait OrderFunctionsTrait {
                 }
             }
         }
-        return true;
+        return [
+            'status'=>true,
+            'message'=>"",
+        ];
     }
 
     public function checkFoodCount($food,$count)
