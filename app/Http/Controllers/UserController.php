@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Api\UpdateProfileRequest;
+use App\Http\Requests\UpdateAvatarRequest;
 use App\Models\Address;
+use App\Models\Order;
 use App\Models\User;
 use App\Rules\MelliCodeRule;
 use App\Rules\MobileRule;
@@ -17,11 +20,9 @@ class UserController extends Controller
         return view('panel.profile.editProfile');
     }
 
-    public function updateAvatar(Request $request,$id)
+    public function updateAvatar(UpdateAvatarRequest $request,$id)
     {
-        $request->validate([
-            'avatar'=>'bail|mimes:jpg,jpeg,png,gif|max:4096',
-        ]);
+        $request->validated();
         $avatarFileName = time().'-'.$request->file('avatar')->getClientOriginalName();
         $uploadImage = Storage::disk('public')->putFileAs('profiles/',$request->file('avatar'),$avatarFileName);
 
@@ -29,15 +30,9 @@ class UserController extends Controller
         return redirect()->back()->with('successMassage','Avatar Was Updated Successfully.');
     }
 
-    public function updateProfile(Request $request,$id)
+    public function updateProfile(UpdateProfileRequest $request,$id)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'password' => 'required|confirmed',
-            'melli_code' => new MelliCodeRule(),
-            'mobile' => new MobileRule(),
-            'phone' => new PhoneRule(),
-        ]);
+        $request->validated();
 
         $user = User::where('id',auth()->user()->id)->update([
             'name' => $request->name,
@@ -49,6 +44,20 @@ class UserController extends Controller
 
         return redirect()->back()->with('successMassage','Profile Data Was Updated Successfully.');
     }
+
+    public function dashboard()
+    {
+        $orders = Order::distinct()->where('user_id',auth()->user()->id)->where('status',1)->where('orderstatus_id','!=',1)->paginate(5);
+        return view('panel.index',compact(['orders']));
+    }
+
+    public function showOrderFoods(Order $order)
+    {
+        $this->authorize('view', auth()->user());
+        $orderFoods = $order->orderfoods;
+        return view('panel.User.orders.showOrderFoods',compact(['orderFoods']));
+    }
+
     /**
      * Display a listing of the resource.
      *

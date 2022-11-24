@@ -10,6 +10,10 @@
         @include('panel.Seller.orders.showOrders')
     @endcan
 
+    @can('user-role')
+        @include('panel.User.orders.showOrders')
+    @endcan
+
     @can('admin-role')
     <div class="container-fluid">
         <!-- breadcrumb -->

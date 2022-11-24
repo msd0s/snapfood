@@ -59,6 +59,7 @@ Route::middleware(['auth'])->group(function (){
         });
         Route::as('user.')->group(function (){
             Route::get('/dashboard', [UserController::class,'dashboard'])->name('index');
+            Route::get('/foods/{order}',[UserController::class,'showOrderFoods'])->whereNumber('order')->name('orderfoods.show');
         });
     });
 });

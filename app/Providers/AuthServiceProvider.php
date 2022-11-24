@@ -14,6 +14,7 @@ use App\Policies\FoodCategoryPolicy;
 use App\Policies\FoodPolicy;
 use App\Policies\RestaurantCategoryPolicy;
 use App\Policies\RestaurantPolicy;
+use App\Policies\UserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -31,6 +32,7 @@ class AuthServiceProvider extends ServiceProvider
         RestaurantCategory::class => RestaurantCategoryPolicy::class,
         Restaurant::class => RestaurantPolicy::class,
         Discount::class => DiscountPolicy::class,
+        User::class => UserPolicy::class,
     ];
 
     /**
