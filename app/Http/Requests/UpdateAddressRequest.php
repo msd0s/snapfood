@@ -24,7 +24,10 @@ class UpdateAddressRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title'=>'required',
+            'address'=>'required',
+            'latitude' => 'bail|required|numeric|between:-90,90',
+            'longitude' => 'bail|required|numeric|between:-180,180'
         ];
     }
 }
