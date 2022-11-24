@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Api\Functions;
 
+use App\Events\OrderStatus;
 use App\Models\Discount;
 use App\Models\Food;
 use App\Models\Foodparty;
@@ -225,4 +226,69 @@ trait OrderFunctionsTrait {
             'message' => $message,
         ], $statusCode);
     }
+
+    public function sendChangeOrderStatusEmail($cart)
+    {
+        event(new OrderStatus($cart));
+    }
+
+    public function checkFoodsCountBeforePay($orderFoods)
+    {
+        foreach ($orderFoods as $orderFood)
+        {
+            if ($orderFood['foodparty_id']>0)
+            {
+                if ($orderFood->foodparty['food_count']<$orderFood['count'])
+                {
+                    $foodName = $orderFood->food['name'];
+                    $maxCount = $orderFood->food['count'];
+                    $foodId = $orderFood['food_id'];
+                    return [
+                        'status'=>false,
+                        'message'=>"Max Count For Food $foodName In FoodParty With Id $foodId Is $maxCount",
+                    ];
+                }
+            }else
+            {
+                if ($orderFood->food['count']<$orderFood['count'])
+                {
+                    $foodName = $orderFood->food['name'];
+                    $maxCount = $orderFood->food['count'];
+                    $foodId = $orderFood['food_id'];
+                    return [
+                        'status'=>false,
+                        'message'=>"Max Count For Food $foodName With Id $foodId Is $maxCount",
+                    ];
+                }
+            }
+        }
+        return true;
+    }
+
+    public function checkFoodCount($food,$count)
+    {
+        if ($food['count']>=$count)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public function decreaseFoodsCount($orderFoods)
+    {
+        foreach ($orderFoods as $orderFood)
+        {
+            if ($orderFood['foodparty_id']>0)
+            {
+                $foodpartyCount = $orderFood->foodparty['food_count']-$orderFood['count'];
+                $orderFood->foodparty->update(['food_count'=>$foodpartyCount]);
+            }
+            $foodCount = $orderFood->food['count']-$orderFood['count'];
+            $orderFood->food->update(['count'=>$foodCount]);
+        }
+    }
+
 }

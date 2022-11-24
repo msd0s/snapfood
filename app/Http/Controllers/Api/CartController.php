@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\OrderStatus;
 use App\Http\Controllers\Api\Functions\OrderFunctionsTrait;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\StoreOrderRequest;
 use App\Http\Requests\CompletePayRequest;
 use App\Http\Resources\OrderResource;
+use App\Jobs\ChangeOrderStatusEmailJob;
+use App\Mail\ChangeOrderStatusMail;
 use App\Models\Address;
 use App\Models\Food;
 use App\Models\Foodparty;
@@ -16,6 +19,7 @@ use App\Models\OrderFoods;
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class CartController extends Controller
@@ -72,7 +76,11 @@ class CartController extends Controller
         $result = $this->findOrderFood($request->food_id, $request->count);
         if ($result['foodOrderExists'])
         {
-            $count = $request->count + $result['foodOrderInstance']['count'];
+            if (!$this->checkFoodCount($result['foodOrderInstance']->food,$request->count))
+            {
+                return $this->orderJsonResponse(false,'Food Count Is Less Than Your Request Count.',200);
+            }
+            $count = $request->count;
             $result['foodOrderInstance']->update(['count'=>$count]);
             return $this->orderJsonResponse(true,'Food Count Updated Successfully',200);
         }
@@ -94,17 +102,37 @@ class CartController extends Controller
             $request->validated();
             if ($cart['user_id'] == auth()->user()->id)
             {
-                if(in_array($request->address_id,auth()->user()->addresses->pluck('id')->toArray()))
-                {
-                    $cart->update(['address_id'=>$request->address_id,'orderstatus_id'=>Order::COMPLETE_ORDERSTATUS,'status'=>Order::COMPLETE_ORDER,'order_code'=>Str::random(12)]);
-                    return $this->orderJsonResponse(true,'Your Payment Completed Successfully.',200);
+                if ($cart['status']==0){
+                    if(in_array($request->address_id,auth()->user()->addresses->pluck('id')->toArray()))
+                    {
+                        if ($this->checkFoodsCountBeforePay($cart->orderfoods)['status']==false){
+                            $status = $this->checkFoodsCountBeforePay($cart->orderfoods)['status'];
+                            $message = $this->checkFoodsCountBeforePay($cart->orderfoods)['message'];
+                            return $this->orderJsonResponse($status,$message,200);
+                        }
+                        $cart->update(['address_id'=>$request->address_id,'orderstatus_id'=>Order::COMPLETE_ORDERSTATUS,'status'=>Order::COMPLETE_ORDER,'order_code'=>Str::random(12)]);
+                        //$this->sendChangeOrderStatusEmail($cart);
+                        $this->decreaseFoodsCount($cart->orderfoods);
+                        return $this->orderJsonResponse(true,'Your Payment Completed Successfully.',200);
+                    }
+                    return $this->orderJsonResponse(false,'Your Address Id Is Incorrect.',403);
                 }
-                return $this->orderJsonResponse(false,'Your Address Id Is Incorrect.',403);
+                return $this->orderJsonResponse(false,'The Order Has Already Been Paid.',403);
             }
             return $this->orderJsonResponse(false,'You Dont Have Permission To Access This Cart.',403);
         } catch (\Throwable $th) {
             return $this->orderJsonResponse(false,$th->getMessage(),500);
         }
+    }
+
+    public function deleteFromCart(Order $order,Request $request)
+    {
+        if ($order['user_id']==auth()->user()->id && $order['status']==0 && in_array($request->foodorder_id,$order->orderfoods->pluck('id')->toArray()))
+        {
+            $order->orderfoods()->where('id',$request->foodorder_id)->delete();
+            return $this->orderJsonResponse(true,'Food Removed From Cart Successfully',200);
+        }
+        return $this->orderJsonResponse(false,'You Dont Have Permission To Remove This Item',403);
     }
 
 }

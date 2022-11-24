@@ -46,6 +46,7 @@ Route::middleware('auth:sanctum')->group(function (){
         Route::patch('/add', [CartController::class,'updateCart']);
         Route::get('/{cart}', [CartController::class,'getCartInformations']);
         Route::post('/{cart}/pay', [CartController::class,'payCart'])->whereNumber('cart');
+        Route::delete('/{order}/delete', [CartController::class,'deleteFromCart']);
     });
 });
 
