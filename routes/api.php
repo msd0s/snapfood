@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AddressController;
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\CartController;
+use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\RestaurantController;
 use Illuminate\Http\Request;
@@ -47,6 +48,10 @@ Route::middleware('auth:sanctum')->group(function (){
         Route::get('/{cart}', [CartController::class,'getCartInformations']);
         Route::post('/{cart}/pay', [CartController::class,'payCart'])->whereNumber('cart');
         Route::delete('/{order}/delete', [CartController::class,'deleteFromCart']);
+    });
+    Route::prefix('comments')->group(function (){
+        Route::get('', [CommentController::class,'getAllComments']);
+        Route::post('', [CommentController::class,'addComment']);
     });
 });
 

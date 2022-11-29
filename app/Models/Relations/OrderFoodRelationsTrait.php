@@ -1,6 +1,7 @@
 <?php
 namespace App\Models\Relations;
 
+use App\Models\Comment;
 use App\Models\Food;
 use App\Models\Foodparty;
 use App\Models\Order;

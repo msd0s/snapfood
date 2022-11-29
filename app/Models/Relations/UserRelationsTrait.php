@@ -2,6 +2,7 @@
 namespace App\Models\Relations;
 
 use App\Models\Address;
+use App\Models\Comment;
 use App\Models\Food;
 use App\Models\Order;
 use App\Models\Restaurant;
@@ -34,5 +35,10 @@ trait UserRelationsTrait {
     public function cards()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 }
