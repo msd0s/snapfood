@@ -2,6 +2,7 @@
 namespace App\Models\Relations;
 
 use App\Models\Address;
+use App\Models\Comment;
 use App\Models\Food;
 use App\Models\FoodCategory;
 use App\Models\Foodparty;
@@ -58,5 +59,10 @@ trait RestaurantRelationsTrait {
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasManyThrough(Comment::class,Order::class,'restaurant_id','order_id');
     }
 }

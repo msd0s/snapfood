@@ -2,6 +2,7 @@
 namespace App\Models\Relations;
 
 use App\Models\Address;
+use App\Models\Comment;
 use App\Models\OrderFoods;
 use App\Models\OrderStatus;
 use App\Models\Restaurant;
@@ -32,6 +33,11 @@ trait OrderRelationsTrait {
     public function address()
     {
         return $this->belongsTo(Address::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 
 }

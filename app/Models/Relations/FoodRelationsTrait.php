@@ -1,13 +1,18 @@
 <?php
 namespace App\Models\Relations;
 
+use App\Models\Comment;
 use App\Models\Discount;
 use App\Models\FoodCategory;
 use App\Models\Foodparty;
+use App\Models\Order;
+use App\Models\OrderFoods;
 use App\Models\Restaurant;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 trait FoodRelationsTrait {
+    use HasRelationships;
     public function restaurant()
     {
         return $this->belongsTo(Restaurant::class);
@@ -26,5 +31,15 @@ trait FoodRelationsTrait {
     public function foodparties()
     {
         return $this->hasMany(Foodparty::class);
+    }
+
+    public function orderFoods()
+    {
+        return $this->hasMany(OrderFoods::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasManyDeep(Comment::class,[OrderFoods::class,Order::class],['food_id','id','order_id']);
     }
 }
