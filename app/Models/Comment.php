@@ -17,5 +17,8 @@ class Comment extends Model
         'user_id','order_id','score','comment','answer','delete_request','status'
     ];
 
+    public const ENABLE_COMMENT = 1;
+    public const DISABLE_COMMENT = 0;
+
 
 }
