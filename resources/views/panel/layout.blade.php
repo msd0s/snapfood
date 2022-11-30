@@ -200,37 +200,37 @@
             <li class="side-item side-item-category">اصلی</li>
             <li class="slide">
                 @can('admin-role')
-                <a class="side-menu__item" href="{{ route('admin.index') }}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                         class="bi bi-house-fill" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd"
-                              d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
-                        <path fill-rule="evenodd"
-                              d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
-                    </svg>
-                    <span class="side-menu__label">صفحه اصلی </span></a>
+                    <a class="side-menu__item" href="{{ route('admin.index') }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                             class="bi bi-house-fill" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                  d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+                            <path fill-rule="evenodd"
+                                  d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+                        </svg>
+                        <span class="side-menu__label">صفحه اصلی </span></a>
                 @endcan
                 @can('seller-role')
-                <a class="side-menu__item" href="{{ route('seller.index') }}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                         class="bi bi-house-fill" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd"
-                              d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
-                        <path fill-rule="evenodd"
-                              d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
-                    </svg>
-                    <span class="side-menu__label">صفحه اصلی </span></a>
+                    <a class="side-menu__item" href="{{ route('seller.index') }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                             class="bi bi-house-fill" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                  d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+                            <path fill-rule="evenodd"
+                                  d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+                        </svg>
+                        <span class="side-menu__label">صفحه اصلی </span></a>
                 @endcan
                 @can('user-role')
-                <a class="side-menu__item" href="{{ route('user.index') }}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                         class="bi bi-house-fill" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd"
-                              d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
-                        <path fill-rule="evenodd"
-                              d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
-                    </svg>
-                    <span class="side-menu__label">صفحه اصلی </span></a>
+                    <a class="side-menu__item" href="{{ route('user.index') }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                             class="bi bi-house-fill" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                  d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+                            <path fill-rule="evenodd"
+                                  d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+                        </svg>
+                        <span class="side-menu__label">صفحه اصلی </span></a>
                 @endcan
             </li>
             <li class="slide">
@@ -260,48 +260,63 @@
             </li>
             @can('admin-role')
 
-            <li class="slide">
-                <a class="side-menu__item" data-toggle="slide" href="#">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                         class="bi bi-file-earmark-fill" viewBox="0 0 16 16">
-                        <path
-                            d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm5.5 1.5v2a1 1 0 0 0 1 1h2l-3-3z"/>
-                    </svg>
-                    <span class="side-menu__label">دسته بندی غذا</span><i class="angle fe fe-chevron-down"></i></a>
-                <ul class="slide-menu">
-                    <li><a class="slide-item" href="{{ route('admin.foodcategory.create') }}">ثبت دسته بندی جدید</a></li>
-                    <li><a class="slide-item" href="{{ route('admin.foodcategory.index') }}">مدیریت دسته بندی ها</a></li>
-                </ul>
-            </li>
+                <li class="slide">
+                    <a class="side-menu__item" data-toggle="slide" href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                             class="bi bi-file-earmark-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm5.5 1.5v2a1 1 0 0 0 1 1h2l-3-3z"/>
+                        </svg>
+                        <span class="side-menu__label">دسته بندی غذا</span><i class="angle fe fe-chevron-down"></i></a>
+                    <ul class="slide-menu">
+                        <li><a class="slide-item" href="{{ route('admin.foodcategory.create') }}">ثبت دسته بندی جدید</a>
+                        </li>
+                        <li><a class="slide-item" href="{{ route('admin.foodcategory.index') }}">مدیریت دسته بندی ها</a>
+                        </li>
+                    </ul>
+                </li>
 
-            <li class="slide">
-                <a class="side-menu__item" data-toggle="slide" href="#">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                         class="bi bi-file-earmark-fill" viewBox="0 0 16 16">
-                        <path
-                            d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm5.5 1.5v2a1 1 0 0 0 1 1h2l-3-3z"/>
-                    </svg>
-                    <span class="side-menu__label">دسته بندی رستوران</span><i class="angle fe fe-chevron-down"></i></a>
-                <ul class="slide-menu">
-                    <li><a class="slide-item" href="{{ route('admin.restaurantcategory.create') }}">ثبت دسته بندی جدید</a></li>
-                    <li><a class="slide-item" href="{{ route('admin.restaurantcategory.index') }}">مدیریت دسته بندی ها</a></li>
-                </ul>
-            </li>
+                <li class="slide">
+                    <a class="side-menu__item" data-toggle="slide" href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                             class="bi bi-file-earmark-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm5.5 1.5v2a1 1 0 0 0 1 1h2l-3-3z"/>
+                        </svg>
+                        <span class="side-menu__label">دسته بندی رستوران</span><i class="angle fe fe-chevron-down"></i></a>
+                    <ul class="slide-menu">
+                        <li><a class="slide-item" href="{{ route('admin.restaurantcategory.create') }}">ثبت دسته بندی
+                                جدید</a></li>
+                        <li><a class="slide-item" href="{{ route('admin.restaurantcategory.index') }}">مدیریت دسته بندی
+                                ها</a></li>
+                    </ul>
+                </li>
 
-            <li class="slide">
-                <a class="side-menu__item" data-toggle="slide" href="#">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                         class="bi bi-file-earmark-fill" viewBox="0 0 16 16">
-                        <path
-                            d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm5.5 1.5v2a1 1 0 0 0 1 1h2l-3-3z"/>
-                    </svg>
-                    <span class="side-menu__label">کد تخفیف</span><i class="angle fe fe-chevron-down"></i>
-                </a>
-                <ul class="slide-menu">
-                    <li><a class="slide-item" href="{{ route('admin.discount.create') }}">ثبت کد تخفیف</a></li>
-                    <li><a class="slide-item" href="{{ route('admin.discount.index') }}">مدیریت تخفیف ها</a></li>
-                </ul>
-            </li>
+                <li class="slide">
+                    <a class="side-menu__item" data-toggle="slide" href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                             class="bi bi-file-earmark-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm5.5 1.5v2a1 1 0 0 0 1 1h2l-3-3z"/>
+                        </svg>
+                        <span class="side-menu__label">کد تخفیف</span><i class="angle fe fe-chevron-down"></i>
+                    </a>
+                    <ul class="slide-menu">
+                        <li><a class="slide-item" href="{{ route('admin.discount.create') }}">ثبت کد تخفیف</a></li>
+                        <li><a class="slide-item" href="{{ route('admin.discount.index') }}">مدیریت تخفیف ها</a></li>
+                    </ul>
+                </li>
+                <li class="slide">
+                    <a class="side-menu__item" href="{{ route('admin.comments.index') }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                             class="bi bi-house-fill" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                  d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+                            <path fill-rule="evenodd"
+                                  d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+                        </svg>
+                        <span class="side-menu__label">درخواست های حذف نظرات </span></a>
+                </li>
             @endcan
 
             @can('seller-role')
@@ -330,7 +345,8 @@
                         <span class="side-menu__label">تنظیمات رستوران</span><i class="angle fe fe-chevron-down"></i>
                     </a>
                     <ul class="slide-menu">
-                        <li><a class="slide-item" href="{{ route('seller.restaurant.index') }}">مدیریت رستوران ها</a></li>
+                        <li><a class="slide-item" href="{{ route('seller.restaurant.index') }}">مدیریت رستوران ها</a>
+                        </li>
                         <li><a class="slide-item" href="{{ route('seller.schedule.create') }}">ثبت زمان بندی</a></li>
                         <li><a class="slide-item" href="{{ route('seller.schedule.index') }}">مدیریت زمان بندی</a></li>
                     </ul>
@@ -352,27 +368,27 @@
                 </li>
 
                 <li class="slide">
-                        <a class="side-menu__item" href="{{ route('seller.archivedorder.show') }}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                                 class="bi bi-house-fill" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                      d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
-                                <path fill-rule="evenodd"
-                                      d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
-                            </svg>
-                            <span class="side-menu__label">آرشیو سفارشات </span></a>
+                    <a class="side-menu__item" href="{{ route('seller.archivedorder.show') }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                             class="bi bi-house-fill" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                  d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+                            <path fill-rule="evenodd"
+                                  d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+                        </svg>
+                        <span class="side-menu__label">آرشیو سفارشات </span></a>
                 </li>
 
                 <li class="slide">
-                        <a class="side-menu__item" href="{{ route('seller.comment.index') }}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                                 class="bi bi-house-fill" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                      d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
-                                <path fill-rule="evenodd"
-                                      d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
-                            </svg>
-                            <span class="side-menu__label">لیست نظرات </span></a>
+                    <a class="side-menu__item" href="{{ route('seller.comment.index') }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                             class="bi bi-house-fill" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                  d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+                            <path fill-rule="evenodd"
+                                  d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+                        </svg>
+                        <span class="side-menu__label">لیست نظرات </span></a>
                 </li>
             @endcan
 
@@ -673,7 +689,7 @@
                                                                     class=""></div>
                                     <div class="mr-3 my-auto">
                                         <h6>{{ auth()->user()->name }}</h6>
-                                            <span>مدیر کل</span>
+                                        <span>مدیر کل</span>
                                     </div>
                                 </div>
                             </div>
@@ -687,7 +703,8 @@
                             <a class="dropdown-item" href="#"><i class="bx bx-envelope"></i>پیام ها</a>
                             <form action="{{ route('logout') }}" method="post">
                                 @csrf
-                                <button type="submit" class="dropdown-item"><i class="bx bx-log-out"></i>خروج از سیستم</button>
+                                <button type="submit" class="dropdown-item"><i class="bx bx-log-out"></i>خروج از سیستم
+                                </button>
                             </form>
                         </div>
                     </div>
