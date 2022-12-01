@@ -35,6 +35,7 @@ Route::middleware('auth:sanctum')->group(function (){
     });
     Route::prefix('restaurants')->group(function (){
         Route::get('', [RestaurantController::class,'getAllRestaurants']);
+        Route::get('/nears', [RestaurantController::class,'allNearRestaurants']);
         Route::get('/{restaurant}', [RestaurantController::class,'getRestaurantData']);
         Route::get('/{restaurant}/foods', [RestaurantController::class,'getRestaurantFoods']);
         Route::post('', [RestaurantController::class,'storeAddress']);
