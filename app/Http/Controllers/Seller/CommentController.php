@@ -14,6 +14,7 @@ class CommentController extends Controller
 
     public function changeCommentStatus(Comment $comment)
     {
+        $this->authorize('update', $comment);
         try {
             if ($comment->order->restaurant_id == auth()->user()->restaurant->id)
             {
@@ -26,9 +27,12 @@ class CommentController extends Controller
                 $comment->update(['status'=>$status]);
                 return redirect()->back()->with(['successMassage'=>'Comment Status Was Changed Successfully.']);
             }
-        }catch (\Exception $e)
+        }catch (\Throwable $th)
         {
-
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage()
+            ], 500);
         }
     }
 
@@ -39,6 +43,7 @@ class CommentController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', Comment::class);
         $comments = Restaurant::find(auth()->user()->restaurant->id)->comments->sortBy('created_at')->toQuery()->paginate(5);
         return view('panel.Seller.comments.showComments',compact(['comments']));
     }
@@ -101,9 +106,12 @@ class CommentController extends Controller
                 $comment->update(['answer'=>$request->answer]);
                 return redirect()->back()->with(['successMassage'=>'Comment Answer Updated Successfully.']);
             }
-        }catch (\Exception $e)
+        }catch (\Throwable $th)
         {
-
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage()
+            ], 500);
         }
     }
 
@@ -115,15 +123,19 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
+        $this->authorize('update', $comment);
         try {
             if ($comment->order->restaurant_id == auth()->user()->restaurant->id)
             {
-                $comment->update(['delete_request'=>1]);
+                $comment->update(['delete_request'=>Comment::DELETE_REQUEST]);
                 return redirect()->back()->with(['successMassage'=>'Delete Request Sent Successfully.']);
             }
-        }catch (\Exception $e)
+        }catch (\Throwable $th)
         {
-
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage()
+            ], 500);
         }
     }
 }

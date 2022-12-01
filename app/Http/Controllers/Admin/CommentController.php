@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Comment;
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class CommentController extends Controller
 {
@@ -19,7 +20,9 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //$comments = Restaurant::find(auth()->user()->restaurant->id)->comments->sortBy('created_at')->toQuery()->paginate(5);
+        if (! Gate::allows('admin-role')) {
+            abort(403);
+        }
         $comments = Comment::distinct()->requestDelete()->paginate(5);
         return view('panel.Admin.comments.showComments', compact(['comments']));
     }
@@ -87,6 +90,9 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
+        if (! Gate::allows('admin-role', $comment)) {
+            abort(403);
+        }
         try {
             $comment->delete();
             return redirect()->back()->with(['successMassage' => 'Comment was Successfully Deleted.']);
