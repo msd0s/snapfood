@@ -15,6 +15,7 @@ use App\Http\Controllers\Seller\ScheduleController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Seller\SellerController;
 use App\Http\Controllers\UserController;
+use App\Models\Comment;
 use Illuminate\Support\Facades\Route;
 
 /*
