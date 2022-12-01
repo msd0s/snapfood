@@ -294,4 +294,14 @@ trait OrderFunctionsTrait {
         }
     }
 
+    public function checkOrderCompleted($orderId)
+    {
+        $order = Order::find($orderId);
+        if ($order['status']==1)
+        {
+            return true;
+        }
+        return false;
+    }
+
 }

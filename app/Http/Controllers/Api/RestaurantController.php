@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\Functions\RestaurantFunctionsTrait;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAddressRequest;
 use App\Http\Resources\AllRestaurantsResource;
+use App\Http\Resources\NearRestaurantResource;
 use App\Http\Resources\RestaurantCategoryResource;
 use App\Http\Resources\RestaurantFoodsResource;
 use App\Http\Resources\RestaurantResource;
@@ -109,5 +110,19 @@ class RestaurantController extends Controller
                 'message' => $th->getMessage()
             ], 500);
         }
+    }
+
+    public function allNearRestaurants()
+    {
+        $userAddress = auth()->user()->addresses()?->where('is_default',1)->first();
+        if (!$userAddress)
+        {
+            return response()->json([
+                'status' => false,
+                'message' => 'Address Not Found Or Address is Not Set To Default.'
+            ], 404);
+        }
+        $nearRestaurants = $this->findNearestRestaurants($userAddress['latitude'],$userAddress['longitude']);
+        return NearRestaurantResource::collection($nearRestaurants);
     }
 }

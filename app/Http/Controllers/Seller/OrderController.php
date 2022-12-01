@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Seller;
 
-use App\Http\Controllers\Api\Functions\OrderFunctionsTrait;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Seller\Functions\OrderFunctionsTrait;
 use App\Models\Food;
 use App\Models\Order;
 use Illuminate\Http\Request;
@@ -30,8 +30,9 @@ class OrderController extends Controller
     public function showArchivedOrders(Order $order)
     {
         $this->authorize('view', $order);
-        $orders = Order::distinct()->where('restaurant_id',auth()->user()->restaurant?->id)->where('orderstatus_id',5)->paginate(5);;
-        return view('panel.Seller.orders.showArchivedOrders',compact(['orders']));
+        $orders = $this->getReceivedOrders()->paginate(5);
+        $allOrderPrices = $this->allOrderPrices($this->getReceivedOrders()->get());
+        return view('panel.Seller.orders.showArchivedOrders',compact(['orders','allOrderPrices']));
     }
 
 

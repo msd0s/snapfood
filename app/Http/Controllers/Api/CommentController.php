@@ -59,14 +59,4 @@ class CommentController extends Controller
         }
         return $this->orderJsonResponse(false,'Your Order Should Be Completed Before Send Comment.',403);
     }
-
-    public function checkOrderCompleted($orderId)
-    {
-        $order = Order::find($orderId);
-        if ($order['status']==1)
-        {
-            return true;
-        }
-        return false;
-    }
 }

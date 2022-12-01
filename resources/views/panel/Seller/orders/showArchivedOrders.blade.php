@@ -95,6 +95,10 @@
                             <table class="table card-table table-striped table-vcenter text-nowrap mb-0">
                                 <thead>
                                 <tr>
+                                    <th style="font-size: small" colspan="3">تعداد کل سفارشات :  {{ $orders->count() }}</th>
+                                    <th style="font-size: small" colspan="2">مجموع در آمد : {{ number_format($allOrderPrices,0,'.',',') }}</th>
+                                </tr>
+                                <tr>
                                     <th class="wd-lg-8p"><span>نام کاربر</span></th>
                                     <th class="wd-lg-20p"><span>مبلغ کل سفارش</span></th>
                                     <th class="wd-lg-20p"><span>آدرس ارسال</span></th>
