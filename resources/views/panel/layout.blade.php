@@ -317,6 +317,22 @@
                         </svg>
                         <span class="side-menu__label">درخواست های حذف نظرات </span></a>
                 </li>
+
+                <li class="slide">
+                    <a class="side-menu__item" data-toggle="slide" href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                             class="bi bi-file-earmark-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm5.5 1.5v2a1 1 0 0 0 1 1h2l-3-3z"/>
+                        </svg>
+                        <span class="side-menu__label">بنرها</span><i class="angle fe fe-chevron-down"></i></a>
+                    <ul class="slide-menu">
+                        <li><a class="slide-item" href="{{ route('admin.banner.create') }}">ثبت بنر
+                                جدید</a></li>
+                        <li><a class="slide-item" href="{{ route('admin.banner.index') }}">مدیریت بنر
+                                ها</a></li>
+                    </ul>
+                </li>
             @endcan
 
             @can('seller-role')
