@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CommentController as AdminCommentController;
 use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Admin\FoodCategoryController;
@@ -42,6 +43,7 @@ Route::middleware(['auth'])->group(function (){
             Route::resource('/restaurantcategory', RestaurantCategoryController::class);
             Route::resource('/discount', DiscountController::class);
             Route::resource('/comments', AdminCommentController::class);
+            Route::resource('/banner', BannerController::class);
         });
         Route::as('seller.')->group(function (){
             Route::get('/index', [SellerController::class,'index'])->name('index');

@@ -12,6 +12,6 @@ class Banner extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'title','picture','url','alter_text'
+        'title','url','alternate','picture','status'
     ];
 }
