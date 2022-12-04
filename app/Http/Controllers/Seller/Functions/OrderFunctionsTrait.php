@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Seller\Functions;
 
+use App\Events\OrderStatus;
 use App\Models\Discount;
 use App\Models\Food;
 use App\Models\FoodCategory;
@@ -28,5 +29,11 @@ trait OrderFunctionsTrait {
         }
         return $allPrice;
     }
+
+    public function sendChangeOrderStatusEmail($cart)
+    {
+        event(new OrderStatus($cart));
+    }
+
 
 }
