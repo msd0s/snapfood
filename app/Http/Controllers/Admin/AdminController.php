@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class AdminController extends Controller
 {
@@ -14,6 +15,9 @@ class AdminController extends Controller
      */
     public function index()
     {
+        if (! Gate::allows('admin-role')) {
+            abort(403);
+        }
         return view('panel.index');
     }
 

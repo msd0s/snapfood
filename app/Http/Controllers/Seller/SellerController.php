@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderStatus;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class SellerController extends Controller
 {
@@ -16,6 +17,9 @@ class SellerController extends Controller
      */
     public function index()
     {
+        if (! Gate::allows('seller-role')) {
+            abort(403);
+        }
         $orderStatuses = OrderStatus::all();
         $orders = Order::distinct()->where('restaurant_id',auth()->user()->restaurant?->id)->where('status',1)->where('orderstatus_id','!=',5)->paginate(5);
         return view('panel.index',compact(['orders','orderStatuses']));
