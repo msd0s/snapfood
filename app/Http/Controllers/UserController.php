@@ -11,6 +11,7 @@ use App\Rules\MelliCodeRule;
 use App\Rules\MobileRule;
 use App\Rules\PhoneRule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
@@ -47,6 +48,9 @@ class UserController extends Controller
 
     public function dashboard()
     {
+        if (! Gate::allows('user-role')) {
+            abort(403);
+        }
         $orders = Order::distinct()->where('user_id',auth()->user()->id)->where('status',1)->where('orderstatus_id','!=',1)->paginate(5);
         return view('panel.index',compact(['orders']));
     }
