@@ -27,10 +27,19 @@ class OrderController extends Controller
         return view('panel.Seller.orders.showOrderFoods',compact(['orderFoods']));
     }
 
-    public function showArchivedOrders(Order $order)
+    public function showArchivedOrders(Request $request,Order $order)
     {
         $this->authorize('view', $order);
-        $orders = $this->getReceivedOrders()->paginate(5);
+        $orders = $this->getReceivedOrders();
+        if (isset($request->from) && $request->from == 'lastweek')
+        {
+            $orders = $orders->lastWeek();
+        }
+        if (isset($request->from) && $request->from == 'lastmonth')
+        {
+            $orders = $orders->lastMonth();
+        }
+        $orders = $orders->paginate(5);
         $allOrderPrices = $this->allOrderPrices($this->getReceivedOrders()->get());
         return view('panel.Seller.orders.showArchivedOrders',compact(['orders','allOrderPrices']));
     }

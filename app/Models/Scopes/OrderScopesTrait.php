@@ -2,6 +2,7 @@
 namespace App\Models\Scopes;
 
 use App\Models\Order;
+use Carbon\Carbon;
 
 trait OrderScopesTrait {
     public function scopeCheckUser($query,$userId)
@@ -27,5 +28,17 @@ trait OrderScopesTrait {
     public function scopeOrder($query,$orderId)
     {
         return $query->where('order_id', $orderId);
+    }
+
+    public function scopeLastWeek($query)
+    {
+        $lastWeek = Carbon::now()->subWeeks(1);
+        return $query->whereBetween('created_at', [$lastWeek,Carbon::now()]);
+    }
+
+    public function scopeLastMonth($query)
+    {
+        $lastMonth = Carbon::now()->subMonths(1);
+        return $query->whereBetween('created_at', [$lastMonth,Carbon::now()]);
     }
 }
