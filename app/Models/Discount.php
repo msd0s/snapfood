@@ -19,4 +19,7 @@ class Discount extends Model
     ];
 
     public const PERCENT_MARK='%';
+    public const NO_PERCENT_DISCOUNT=0;
+    public const HOUNDRED_PERCENT=100;
+    public const NO_PRICE_DISCOUNT=0;
 }

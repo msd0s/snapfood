@@ -21,7 +21,7 @@ class SellerController extends Controller
             abort(403);
         }
         $orderStatuses = OrderStatus::all();
-        $orders = Order::distinct()->where('restaurant_id',auth()->user()->restaurant?->id)->where('status',1)->where('orderstatus_id','!=',5)->paginate(5);
+        $orders = Order::distinct()->where('restaurant_id',auth()->user()->restaurant?->id)->where('status',Order::ENABLE_STATUS)->where('orderstatus_id','!=',Order::ORDER_RECEIVED_TO_USER)->paginate(5);
         return view('panel.index',compact(['orders','orderStatuses']));
     }
 

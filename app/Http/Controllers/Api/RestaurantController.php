@@ -72,8 +72,8 @@ class RestaurantController extends Controller
         try {
             if ($address->user_id==auth()->user()->id)
             {
-                auth()->user()->addresses()->update(['is_default'=>0]);
-                $address->update(['is_default'=>1]);
+                auth()->user()->addresses()->update(['is_default'=>Address::DISABLE_IS_DEFAUlT]);
+                $address->update(['is_default'=>Address::ENABLE_IS_DEFAUlT]);
                 return response()->json([
                     'status'=> true,
                     'message' => 'Current Address Updated Successfully'
@@ -114,7 +114,7 @@ class RestaurantController extends Controller
 
     public function allNearRestaurants()
     {
-        $userAddress = auth()->user()->addresses()?->where('is_default',1)->first();
+        $userAddress = auth()->user()->addresses()?->where('is_default',Address::ENABLE_IS_DEFAUlT)->first();
         if (!$userAddress)
         {
             return response()->json([

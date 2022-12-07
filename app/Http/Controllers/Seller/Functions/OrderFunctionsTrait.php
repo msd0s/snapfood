@@ -11,13 +11,13 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 trait OrderFunctionsTrait {
     private function getReceivedOrders()
     {
-        return Order::distinct()->where('restaurant_id',auth()->user()->restaurant?->id)->where('orderstatus_id',5);
+        return Order::distinct()->where('restaurant_id',auth()->user()->restaurant?->id)->where('orderstatus_id',Order::ORDER_RECEIVED_TO_USER);
     }
 
     private function allOrderPrices($orders)
     {
-        $allPrice = 0;
-        if ($orders->count()>0)
+        $allPrice = Order::ORDER_ZERO_FOOD_COUNT;
+        if ($orders->count()>Order::ORDER_COUNT)
         {
             foreach ($orders as $order)
             {

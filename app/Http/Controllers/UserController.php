@@ -51,7 +51,7 @@ class UserController extends Controller
         if (! Gate::allows('user-role')) {
             abort(403);
         }
-        $orders = Order::distinct()->where('user_id',auth()->user()->id)->where('status',1)->where('orderstatus_id','!=',1)->paginate(5);
+        $orders = Order::distinct()->where('user_id',auth()->user()->id)->where('status',Order::ENABLE_STATUS)->where('orderstatus_id','!=',Order::ORDER_NOT_PAYED)->paginate(5);
         return view('panel.index',compact(['orders']));
     }
 

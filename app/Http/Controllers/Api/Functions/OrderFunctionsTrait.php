@@ -136,7 +136,7 @@ trait OrderFunctionsTrait {
 
     public function checkFoodOrderExists($food_id,$order_id)
     {
-        $foodOrder = OrderFoods::distinct()->food($food_id)->foodparty(0)->order($order_id)->first();
+        $foodOrder = OrderFoods::distinct()->food($food_id)->foodparty(Order::NO_FOODPARTY)->order($order_id)->first();
         if (isset($foodOrder))
         {
             return [
@@ -153,18 +153,18 @@ trait OrderFunctionsTrait {
     public function checkFoodDiscount($food)
     {
         $data = [
-            'percentDiscount' => 0,
-            'priceDiscount' => 0,
+            'percentDiscount' => Discount::NO_PERCENT_DISCOUNT,
+            'priceDiscount' => Discount::NO_PRICE_DISCOUNT,
             'foodparty_id' => false,
             'food_id' => false,
         ];
         $discount = $food->discounts()->first();
         $data['food_id'] = $food['id'];
-        if (isset($discount) && explode('%', $discount['percent'])[0] > 0) {
-            $percentDiscount = ($food['price'] * explode('%', $discount['percent'])[0]) / 100;
+        if (isset($discount) && explode('%', $discount['percent'])[0] > Discount::NO_PERCENT_DISCOUNT) {
+            $percentDiscount = ($food['price'] * explode('%', $discount['percent'])[0]) / Discount::HOUNDRED_PERCENT;
             $data['percentDiscount'] = $percentDiscount;
         }
-        if (isset($discount) && $discount['price'] > 0) {
+        if (isset($discount) && $discount['price'] > Discount::NO_PRICE_DISCOUNT) {
             $priceDiscount = $discount['price'];
             $data['priceDiscount'] = $priceDiscount;
         }
@@ -174,19 +174,19 @@ trait OrderFunctionsTrait {
     public function checkFoodPartyDiscount($foodParty)
     {
         $data = [
-            'percentDiscount' => 0,
-            'priceDiscount' => 0,
+            'percentDiscount' => Discount::NO_PERCENT_DISCOUNT,
+            'priceDiscount' => Discount::NO_PRICE_DISCOUNT,
             'foodparty_id' => false,
             'food_id' => false,
         ];
         $discount = $foodParty->discount;
         $data['foodparty_id'] = $foodParty['id'];
         $data['food_id'] = $foodParty['food_id'];
-        if (isset($discount) && explode('%', $discount['percent'])[0] > 0) {
-            $percentDiscount = ($foodParty->food['price'] * explode('%', $discount['percent'])[0]) / 100;
+        if (isset($discount) && explode('%', $discount['percent'])[0] > Discount::NO_PERCENT_DISCOUNT) {
+            $percentDiscount = ($foodParty->food['price'] * explode('%', $discount['percent'])[0]) / Discount::HOUNDRED_PERCENT;
             $data['percentDiscount'] = $percentDiscount;
         }
-        if (isset($discount) && $discount['price'] > 0) {
+        if (isset($discount) && $discount['price'] > Discount::NO_PRICE_DISCOUNT) {
             $priceDiscount = $discount['price'];
             $data['priceDiscount'] = $priceDiscount;
         }
@@ -198,7 +198,7 @@ trait OrderFunctionsTrait {
         $startTime = Carbon::createFromFormat('H:i a', Foodparty::FOODPARTY_START_TIME);
         $endTime = Carbon::createFromFormat('H:i a', Foodparty::FOODPARTY_END_TIME);
         if (Carbon::now()->between($startTime, $endTime, true)) {
-            $food = Foodparty::distinct()->where('food_id', $food_id)->where('restaurant_id', $restaurant_id)->where('food_count', '>', 0)->first();
+            $food = Foodparty::distinct()->where('food_id', $food_id)->where('restaurant_id', $restaurant_id)->where('food_count', '>', Foodparty::FOODPARTY_ZERO_COUNT)->first();
             if (isset($food)) {
                 return $data = [
                     'foodPartyExists' => true,
@@ -236,7 +236,7 @@ trait OrderFunctionsTrait {
     {
         foreach ($orderFoods as $orderFood)
         {
-            if ($orderFood['foodparty_id']>0)
+            if ($orderFood['foodparty_id']>Foodparty::WRONG_FOODPARTY)
             {
                 if ($orderFood->foodparty['food_count']<$orderFood['count'])
                 {
@@ -284,7 +284,7 @@ trait OrderFunctionsTrait {
     {
         foreach ($orderFoods as $orderFood)
         {
-            if ($orderFood['foodparty_id']>0)
+            if ($orderFood['foodparty_id']>Foodparty::WRONG_FOODPARTY)
             {
                 $foodpartyCount = $orderFood->foodparty['food_count']-$orderFood['count'];
                 $orderFood->foodparty->update(['food_count'=>$foodpartyCount]);
@@ -297,7 +297,7 @@ trait OrderFunctionsTrait {
     public function checkOrderCompleted($orderId)
     {
         $order = Order::find($orderId);
-        if ($order['status']==1)
+        if ($order['status']==Order::ENABLE_STATUS)
         {
             return true;
         }
