@@ -7,35 +7,34 @@
     <!---Internal Fileupload css-->
     <link href="{{ asset('assets/plugins/fileuploads/css/fileupload.css') }}" rel="stylesheet" type="text/css"/>
     <!---Internal Fancy uploader css-->
-    <link href="{{ asset('assets/plugins/fancyuploder/fancy_fileupload.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/plugins/fancyuploder/fancy_fileupload.css') }}" rel="stylesheet"/>
     <!--Internal Sumoselect css-->
     <link rel="stylesheet" href="{{ asset('assets/plugins/sumoselect/sumoselect-rtl.css') }}">
     <!--Internal  TelephoneInput css-->
     <link rel="stylesheet" href="{{ asset('assets/plugins/telephoneinput/telephoneinput-rtl.css') }}">
     <style>
-        .select2
-        {
+        .select2 {
             width: 100% !important;
         }
-        .jumps-prevent
-        {
+
+        .jumps-prevent {
             padding-top: 31.5px !important;
         }
-        .select2
-        {
+
+        .select2 {
             width: 100% !important;
             height: 40px;
         }
-        .selection,.select2-selection
-        {
+
+        .selection, .select2-selection {
             height: 40px !important;
         }
-        .select2-selection__rendered
-        {
+
+        .select2-selection__rendered {
             padding-top: 5px;
         }
-        .select2-selection__arrow
-        {
+
+        .select2-selection__arrow {
             margin: 5px 0px 0px 10px !important;
         }
     </style>
@@ -54,21 +53,25 @@
             </div>
             <div class="d-flex my-xl-auto right-content">
                 <div class="pr-1 mb-3 mb-xl-0">
-                    <button type="button" class="btn btn-info btn-icon ml-2"><i class="mdi mdi-filter-variant"></i></button>
+                    <button type="button" class="btn btn-info btn-icon ml-2"><i class="mdi mdi-filter-variant"></i>
+                    </button>
                 </div>
                 <div class="pr-1 mb-3 mb-xl-0">
                     <button type="button" class="btn btn-danger btn-icon ml-2"><i class="mdi mdi-star"></i></button>
                 </div>
                 <div class="pr-1 mb-3 mb-xl-0">
-                    <button type="button" class="btn btn-warning  btn-icon ml-2"><i class="mdi mdi-refresh"></i></button>
+                    <button type="button" class="btn btn-warning  btn-icon ml-2"><i class="mdi mdi-refresh"></i>
+                    </button>
                 </div>
                 <div class="mb-3 mb-xl-0">
                     <div class="btn-group dropdown">
                         <button type="button" class="btn btn-primary">20 مهر 1399</button>
-                        <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" id="dropdownMenuDate" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split"
+                                id="dropdownMenuDate" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="sr-only">منوی کشویی</span>
                         </button>
-                        <div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownMenuDate" data-x-placement="bottom-end">
+                        <div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownMenuDate"
+                             data-x-placement="bottom-end">
                             <a class="dropdown-item" href="#">1399 </a>
                             <a class="dropdown-item" href="#">1398 </a>
                             <a class="dropdown-item" href="#">1397 </a>
@@ -92,11 +95,28 @@
                     <div class="card-body">
                         @include('panel.sections.errors')
                         <div class="table-responsive border-top userlist-table">
+                            <form action="{{ route('seller.archivedorder.show') }}" method="get">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                        <select class="form-control" name="from" id="from">
+                                            <option value="lastweek">هفته گذشته</option>
+                                            <option value="lastmonth">ماه گذشته</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                        <button type="submit" class="btn btn-success">فیلتر</button>
+                                    </div>
+                                </div>
+                            </form>
+
                             <table class="table card-table table-striped table-vcenter text-nowrap mb-0">
                                 <thead>
                                 <tr>
-                                    <th style="font-size: small" colspan="3">تعداد کل سفارشات :  {{ $orders->count() }}</th>
-                                    <th style="font-size: small" colspan="2">مجموع در آمد : {{ number_format($allOrderPrices,0,'.',',') }}</th>
+                                    <th style="font-size: small" colspan="3">تعداد کل سفارشات
+                                        : {{ $orders->count() }}</th>
+                                    <th style="font-size: small" colspan="2">مجموع در آمد
+                                        : {{ number_format($allOrderPrices,0,'.',',') }}</th>
                                 </tr>
                                 <tr>
                                     <th class="wd-lg-8p"><span>نام کاربر</span></th>
@@ -120,10 +140,12 @@
                                         <td>{{ number_format($price,0,'',',') }} ریال</td>
                                         <td>{{ $order->address->address }}</td>
                                         <td>
-                                            <p class="px-2 py-2 text-center rounded mb-0" style="background-color: {{ $order->orderstatus['bgcolor'] }};color: white;">{{ $order->orderstatus['title'] }}</p>
+                                            <p class="px-2 py-2 text-center rounded mb-0"
+                                               style="background-color: {{ $order->orderstatus['bgcolor'] }};color: white;">{{ $order->orderstatus['title'] }}</p>
                                         </td>
                                         <td>
-                                            <a href="{{ route('seller.orderfoods.show',$order['id']) }}" class="btn btn-sm btn-success">
+                                            <a href="{{ route('seller.orderfoods.show',$order['id']) }}"
+                                               class="btn btn-sm btn-success">
                                                 <i class="las la-eye"></i>
                                             </a>
                                         </td>
@@ -193,8 +215,7 @@
         myMap.on('click', onMapClick);
 
         function onMapClick(e) {
-            if (marker!=undefined)
-            {
+            if (marker != undefined) {
                 myMap.removeLayer(marker);
             }
             marker = new L.Marker(e.latlng);
