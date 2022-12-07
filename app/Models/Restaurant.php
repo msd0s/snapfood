@@ -22,4 +22,6 @@ class Restaurant extends Model
         'user_id','name','phone','score','comment_count','account_number','picture','send_price','restaurant_status'
     ];
 
+    public const ZERO_RESTAURANT = 0;
+
 }

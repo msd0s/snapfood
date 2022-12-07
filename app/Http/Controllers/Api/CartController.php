@@ -132,7 +132,7 @@ class CartController extends Controller
 
     public function deleteFromCart(Order $order,Request $request)
     {
-        if ($order['user_id']==auth()->user()->id && $order['status']==0 && in_array($request->foodorder_id,$order->orderfoods->pluck('id')->toArray()))
+        if ($order['user_id']==auth()->user()->id && $order['status']==Order::DISABLE_STATUS && in_array($request->foodorder_id,$order->orderfoods->pluck('id')->toArray()))
         {
             $order->orderfoods()->where('id',$request->foodorder_id)->delete();
             return $this->orderJsonResponse(true,'Food Removed From Cart Successfully',200);

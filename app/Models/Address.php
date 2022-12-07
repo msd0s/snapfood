@@ -18,4 +18,7 @@ class Address extends Model
         'title','restaurant_id','user_id','address','latitude','longitude','is_default'
     ];
 
+    public const ENABLE_IS_DEFAUlT = 1;
+    public const DISABLE_IS_DEFAUlT = 0;
+
 }

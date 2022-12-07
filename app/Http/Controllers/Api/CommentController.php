@@ -38,12 +38,12 @@ class CommentController extends Controller
         }
         if (isset($request->restaurant_id))
         {
-            $comments = Restaurant::find($request->restaurant_id)->comments->where('status',1);
+            $comments = Restaurant::find($request->restaurant_id)->comments->where('status',Comment::ENABLE_COMMENT);
             return CommentResource::collection($comments);
         }
         if (isset($request->food_id))
         {
-            $comments = Food::find($request->food_id)->comments->where('status',1);
+            $comments = Food::find($request->food_id)->comments->where('status',Comment::ENABLE_COMMENT);
             return CommentResource::collection($comments);
         }
 

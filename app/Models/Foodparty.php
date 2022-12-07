@@ -19,5 +19,7 @@ class Foodparty extends Model
 
     public const FOODPARTY_START_TIME="12:01 AM";
     public const FOODPARTY_END_TIME="10:00 PM";
+    public const FOODPARTY_ZERO_COUNT=0;
+    public const WRONG_FOODPARTY=0;
 
 }

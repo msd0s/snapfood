@@ -45,9 +45,9 @@ class AddressController extends Controller
         $this->authorize('access-profile');
         $request->validated();
         $request->merge(['user_id'=>auth()->user()->id]);
-        if ($request->is_default==1)
+        if ($request->is_default==Address::ENABLE_IS_DEFAUlT)
         {
-            auth()->user()->addresses()->update(['is_default'=>0]);
+            auth()->user()->addresses()->update(['is_default'=>Address::DISABLE_IS_DEFAUlT]);
         }
         Address::create($request->except(['method','csrf']));
         return redirect()->back()->with(['successMassage'=>'New Address Created Successfully.']);
@@ -100,7 +100,7 @@ class AddressController extends Controller
         ];
         if ($request->is_default==1)
         {
-            auth()->user()->addresses()->update(['is_default'=>0]);
+            auth()->user()->addresses()->update(['is_default'=>Address::DISABLE_IS_DEFAUlT]);
         }
         $address->update($data);
         return redirect()->back()->with(['successMassage'=>'Address Updated Successfully.']);
