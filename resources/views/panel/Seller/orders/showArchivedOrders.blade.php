@@ -110,7 +110,14 @@
                                 @forelse($orders as $order)
                                     <tr>
                                         <td>{{ $order->user['name'] }}</td>
-                                        <td>{{ number_format($order->orderfoods()->sum('price'),0,'',',') }} ریال</td>
+
+                                        @php($price = 0)
+                                        @forelse($order->orderfoods as $foods)
+                                            @php($price = $price+($foods['price']*$foods['count']))
+                                        @empty
+                                        @endforelse
+
+                                        <td>{{ number_format($price,0,'',',') }} ریال</td>
                                         <td>{{ $order->address->address }}</td>
                                         <td>
                                             <p class="px-2 py-2 text-center rounded mb-0" style="background-color: {{ $order->orderstatus['bgcolor'] }};color: white;">{{ $order->orderstatus['title'] }}</p>
