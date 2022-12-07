@@ -42,6 +42,11 @@ class CartController extends Controller
                 $result['order_id'] = Order::create(['user_id' => auth()->user()->id, 'restaurant_id' => $result['restaurant_id']])->id;
             }
 
+            if (!$this->checkFoodCount($result['foodInstance'],$request->count))
+            {
+                return $this->orderJsonResponse(false,'Food Count Is Less Than Your Request Count.',200);
+            }
+
             if ($result['foodPartyExists'] && !$result['foodPartyOrderExists'])
             {
                 $foodPartyDiscount = $this->checkFoodPartyDiscount($result['foodPartyInstance']);
